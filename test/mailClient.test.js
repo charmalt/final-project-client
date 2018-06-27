@@ -1,11 +1,11 @@
 /* globals describe, it, expect, jest, beforeEach */
 const MailClient = require('../lib/MailClient')
 jest.mock('net')
-jest.mock('../lib/sendMessage')
+jest.mock('../lib/sender')
 
 describe('MailClient', () => {
   let Socket = require('net').Socket
-  let Sender = require('../lib/sendMessage')
+  let Sender = require('../lib/sender')
   let spyNewConnection
   let spySocket
   let mailClient
@@ -44,7 +44,7 @@ describe('MailClient', () => {
     mailClient.sendModeOn()
     Senderspy = jest.spyOn(Sender, 'send')
     mailClient.connect(PORT, HOST)
-    expect(Senderspy).toHaveBeenCalledWith(mailClient.message)
+    expect(Senderspy).toHaveBeenCalledWith(mailClient.message, mailClient.connection.connect(PORT, HOST))
 
   })
 })

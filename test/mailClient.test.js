@@ -1,9 +1,11 @@
 /* globals describe, it, expect, jest, beforeEach */
 const MailClient = require('../lib/MailClient')
 jest.mock('net')
+jest.mock('../lib/sendMessage')
 
 describe('MailClient', () => {
   let Socket = require('net').Socket
+  let Sender = require('../lib/sendMessage')
   let spyNewConnection
   let spySocket
   let mailClient
@@ -12,6 +14,7 @@ describe('MailClient', () => {
   beforeEach(() => {
     mailClient = new MailClient()
     spyNewConnection = jest.spyOn(mailClient, 'newConnection')
+    Sender.send = () => {}
   })
 
   it('should create a new socket on newConnection()', () => {
@@ -22,7 +25,7 @@ describe('MailClient', () => {
   it('should connect to a server on connect()', () => {
     mailClient.newConnection()
     spySocket = jest.spyOn(mailClient.connection, 'connect')
-    mailClient.connection.connect(PORT, HOST)
+    mailClient.connect(PORT, HOST)
     expect(spySocket).toHaveBeenCalled()
   })
 
@@ -34,5 +37,14 @@ describe('MailClient', () => {
   it('sets sendMode to off', () => {
     mailClient.sendModeOff()
     expect(mailClient.sendMode).toBeFalsy()
+  })
+
+  it('sends the message if sendMode is on', () => {
+    mailClient.newConnection()
+    mailClient.sendModeOn()
+    Senderspy = jest.spyOn(Sender, 'send')
+    mailClient.connect(PORT, HOST)
+    expect(Senderspy).toHaveBeenCalledWith(mailClient.message)
+
   })
 })

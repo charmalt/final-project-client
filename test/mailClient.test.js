@@ -3,16 +3,26 @@ const MailClient = require('../lib/MailClient')
 jest.mock('net')
 
 describe('MailClient', () => {
-  let net = require('net')
+  let Socket = require('net').Socket
   let spyNewConnection
+  let spySocket
   let mailClient
+  const PORT = 1337
+  const HOST = '127.0.0.1'
   beforeEach(() => {
     mailClient = new MailClient()
     spyNewConnection = jest.spyOn(mailClient, 'newConnection')
   })
 
-  it('It calls connect command', () => {
+  it('should create a new socket on newConnection()', () => {
     mailClient.newConnection()
     expect(spyNewConnection).toHaveBeenCalled()
+  })
+
+  it('should connect to a server on connect()', () => {
+    mailClient.newConnection()
+    spySocket = jest.spyOn(mailClient.connection, 'connect')
+    mailClient.connection.connect(PORT, HOST)
+    expect(spySocket).toHaveBeenCalled()
   })
 })

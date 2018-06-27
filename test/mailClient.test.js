@@ -26,8 +26,13 @@ describe('MailClient', () => {
     expect(spySocket).toHaveBeenCalled()
   })
 
-  it('sets mode to send', () => {
-    mailClient.setMode('send')
-    expect(mailClient.communicationMode).toEqual('send')
+  it('sets sendMode to on', () => {
+    mailClient.sendModeOn()
+    expect(mailClient.sendMode).toBeTruthy()
+  })
+
+  it('sets sendMode to off', () => {
+    mailClient.sendModeOff()
+    expect(mailClient.sendMode).toBeFalsy()
   })
 })

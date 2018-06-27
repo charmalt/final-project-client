@@ -1,3 +1,5 @@
+/* global it, describe, test, expect */
+
 const Sender = require('../lib/sender')
 const sinon = require('sinon')
 
@@ -39,6 +41,37 @@ describe('Sender', function () {
 
     it('call connection.on', function () {
       Sender.ehloMethod(connectionMock)
+      expect(connectionMock.on).toHaveBeenCalledWith('data', expect.any(Function) )
+    })
+  })
+  describe('_responseProcessor', function () {
+    it('should return false if the code is not what is expected', function () {
+      expect(Sender._responseProcessor(connectionMock, 250, '260')).toBeFalsy()
+    })
+    it('should return true if the code is what is expected', function () {
+      expect(Sender._responseProcessor(connectionMock, 250, '250')).toBeTruthy()
+    })
+  })
+  describe('mailToMethod', function () {
+    it('call connection.write', function () {
+      Sender.mailToMethod(connectionMock, message)
+      expect(connectionMock.write).toHaveBeenCalledWith('MAIL FROM: john@john.com')
+    })
+
+    it('call connection.on', function () {
+      Sender.mailToMethod(connectionMock, message)
+      expect(connectionMock.on).toHaveBeenCalledWith('data', expect.any(Function) )
+    })
+  })
+
+  describe('mailToMethod', function () {
+    it('call connection.write', function () {
+      Sender.mailToMethod(connectionMock, message)
+      expect(connectionMock.write).toHaveBeenCalledWith('MAIL FROM: john@john.com')
+    })
+
+    it('call connection.on', function () {
+      Sender.mailToMethod(connectionMock, message)
       expect(connectionMock.on).toHaveBeenCalledWith('data', expect.any(Function) )
     })
   })

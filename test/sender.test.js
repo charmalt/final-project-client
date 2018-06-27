@@ -16,7 +16,7 @@ describe('Sender', function () {
     })
   })
   describe('_handshake', function () {
-    it('should ', function () {
+    it('should call .write method', function () {
       
     })
   })

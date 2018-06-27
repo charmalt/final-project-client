@@ -42,9 +42,8 @@ describe('MailClient', () => {
   it('sends the message if sendMode is on', () => {
     mailClient.newConnection()
     mailClient.sendModeOn()
-    Senderspy = jest.spyOn(Sender, 'send')
+    let Senderspy = jest.spyOn(Sender, 'send')
     mailClient.connect(PORT, HOST)
     expect(Senderspy).toHaveBeenCalledWith(mailClient.message, mailClient.connection.connect(PORT, HOST))
-
   })
 })

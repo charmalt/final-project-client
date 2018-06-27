@@ -25,4 +25,9 @@ describe('MailClient', () => {
     mailClient.connection.connect(PORT, HOST)
     expect(spySocket).toHaveBeenCalled()
   })
+
+  it('sets mode to send', () => {
+    mailClient.setMode('send')
+    expect(mailClient.communicationMode).toEqual('send')
+  })
 })

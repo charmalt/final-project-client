@@ -12,7 +12,9 @@ describe('Sender', function () {
   let message = {
     MAIL_FROM: 'john@john.com',
     RCPT_TO: 'igor@john.com',
-    DATA: 'Hi Igor'
+    DATA: 'Hi Igor.\n' +
+    'This is a test message\n' +
+    'Have fun testing me, you MOFA!\n'
   }
   describe('send method', function () {
     it('should call connection.on ', function () {
@@ -52,26 +54,38 @@ describe('Sender', function () {
       expect(Sender._responseProcessor(connectionMock, 250, '250')).toBeTruthy()
     })
   })
-  describe('mailToMethod', function () {
+  describe('mailFromMethod', function () {
     it('call connection.write', function () {
-      Sender.mailToMethod(connectionMock, message)
+      Sender.mailFromMethod(connectionMock, message)
       expect(connectionMock.write).toHaveBeenCalledWith('MAIL FROM: john@john.com')
     })
 
     it('call connection.on', function () {
-      Sender.mailToMethod(connectionMock, message)
+      Sender.mailFromMethod(connectionMock, message)
       expect(connectionMock.on).toHaveBeenCalledWith('data', expect.any(Function) )
     })
   })
 
-  describe('mailToMethod', function () {
+  describe('rcptToMethod', function () {
     it('call connection.write', function () {
-      Sender.mailToMethod(connectionMock, message)
-      expect(connectionMock.write).toHaveBeenCalledWith('MAIL FROM: john@john.com')
+      Sender.rcptToMethod(connectionMock, message)
+      expect(connectionMock.write).toHaveBeenCalledWith('RCPT TO: igor@john.com')
     })
 
     it('call connection.on', function () {
-      Sender.mailToMethod(connectionMock, message)
+      Sender.rcptToMethod(connectionMock, message)
+      expect(connectionMock.on).toHaveBeenCalledWith('data', expect.any(Function) )
+    })
+  })
+
+  describe('dataMethod', function () {
+    it('call connection.write', function () {
+      Sender.dataMethod(connectionMock)
+      expect(connectionMock.write).toHaveBeenCalledWith('DATA')
+    })
+
+    it('call connection.on', function () {
+      Sender.dataMethod(connectionMock)
       expect(connectionMock.on).toHaveBeenCalledWith('data', expect.any(Function) )
     })
   })

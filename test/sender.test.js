@@ -31,7 +31,7 @@ describe('Sender', function () {
       expect(connectionSpy).toHaveBeenCalledWith('EHLO')
     })
     it('should call connection.destroy if sender._functionOrder is empty', function () {
-      let connectionSpy = jest.spyOn(connection, 'destroy')
+      let connectionSpy = jest.spyOn(connection, 'end')
       sender._functionOrder = []
       sender._handshake()
       expect(connectionSpy).toHaveBeenCalled()

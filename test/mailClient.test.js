@@ -6,6 +6,11 @@ describe('MailClient', () => {
   let mailClient
   let clientPort = 1337
   let clientHost = '127.0.0.1'
+  let clientMessage = {
+    MAIL_FROM: 'john@john.com',
+    RCPT_TO: 'igor@john.com',
+    DATA: 'From: John\nTo: Igor\nSubject: SMTP Feature Testing\n\nHi, Igor.\nThis is a test message.\nAnd this is line 3.\n\nYours,\nJohn'
+  }
 
   beforeEach(() => {
     mailClient = new MailClient(clientPort, clientHost)
@@ -21,5 +26,13 @@ describe('MailClient', () => {
 
   it('has a host property', () => {
     expect(mailClient.host).toEqual(clientHost)
+  })
+
+  it('has a mail property object', () => {
+    expect(mailClient.message).toEqual(clientMessage)
+  })
+
+  it('has a property of sender', () => {
+    expect(mailClient.sender).toEqual(null)
   })
 })

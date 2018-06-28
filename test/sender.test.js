@@ -11,7 +11,10 @@ describe('Sender', function () {
     DATA: 'From: John\nTo: Igor\nSubject: SMTP Feature Testing\n\nHi, Igor.\nThis is a test message.\nAnd this is line 3.\n\nYours,\nJohn'
   }
   let connection = new Socket()
-  let sender = new Sender(message, connection)
+  let sender
+  beforeEach(() => {
+    sender = new Sender(message, connection)
+  })
 
   describe('send', () => {
     it('should call handshake', () => {
@@ -22,8 +25,16 @@ describe('Sender', function () {
   })
 
   describe('_handshake', () => {
-    xit('should call the first function of sender._functionOrder', () => {
-      expect(sender._handshake).to
+    it('should call the first function of sender._functionOrder', () => {
+      let connectionSpy = jest.spyOn(connection, 'write')
+      sender._handshake()
+      expect(connectionSpy).toHaveBeenCalledWith('EHLO')
+    })
+    it('should call connection.destroy if sender._functionOrder is empty', function () {
+      let connectionSpy = jest.spyOn(connection, 'destroy')
+      sender._functionOrder = []
+      sender._handshake()
+      expect(connectionSpy).toHaveBeenCalled()
     })
   })
 

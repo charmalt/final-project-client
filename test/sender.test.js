@@ -29,7 +29,7 @@ describe('Sender', function () {
 
   describe('Handshake methods', () => {
     let connectionSpy = jest.spyOn(connection, 'write')
-    
+
     describe('_ehloMethod', () => {
       it('should write EHLO to the socket', function () {
         sender._ehloMethod()
@@ -38,7 +38,7 @@ describe('Sender', function () {
     })
 
     describe('_mailFromMethod', () => {
-      it("should write 'MAIL FROM:' plus the given email address", () => {
+      it("should write 'MAIL FROM: ' plus the given email address", () => {
         sender._mailFromMethod()
         expect(connectionSpy).toHaveBeenCalledWith(`MAIL FROM: ${sender.message.MAIL_FROM}`)
       })
@@ -48,6 +48,13 @@ describe('Sender', function () {
       it("should write 'RCPT TO: ' plus the given email address", () => {
         sender._rcptToMethod()
         expect(connectionSpy).toHaveBeenCalledWith(`RCPT TO: ${sender.message.RCPT_TO}`)
+      })
+    })
+
+    describe('_dataMethod', () => {
+      it('should write DATA', () => {
+        sender._dataMethod()
+        expect(connectionSpy).toHaveBeenCalledWith('DATA')
       })
     })
   })

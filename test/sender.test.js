@@ -74,5 +74,12 @@ describe('Sender', function () {
         expect(connectionSpy).toHaveBeenCalledWith('\r\n.\r\n')
       })
     })
+
+    describe('_quitMethod', () => {
+      it('should write QUIT', function () {
+        sender._quitMethod()
+        expect(connectionSpy).toHaveBeenCalledWith('QUIT')
+      })
+    })
   })
 })

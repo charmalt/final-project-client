@@ -41,9 +41,9 @@ describe('MailClient', () => {
     expect(mailClient.sender).toEqual(null)
   })
 
-  describe('connect', () => {
+  describe('_connect', () => {
     beforeEach(() => {
-      mailClient.connect()
+      mailClient._connect()
     })
 
     it('should assign a new socket to the connection property', () => {

@@ -22,7 +22,7 @@ describe('Sender', function () {
   })
 
   describe('_handshake', () => {
-    xit('should call the first function of sender.functionOrder', () => {
+    xit('should call the first function of sender._functionOrder', () => {
       expect(sender._handshake).to
     })
   })
@@ -90,6 +90,31 @@ describe('Sender', function () {
       let expectedResponse = '5'
       sender._responseProcessor(actualResponse, expectedResponse)
       expect(console.log).toHaveBeenCalledWith(actualResponse.toString())
+    })
+
+    it('should call connection.end if response differs from expected response', function () {
+      let connectionSpy = jest.spyOn(connection, 'end')
+      let actualResponse = 5
+      let expectedResponse = '6'
+      sender._responseProcessor(actualResponse, expectedResponse)
+      expect(connectionSpy).toHaveBeenCalled()
+    })
+
+    it('should remove the first member of sender._functionOrder', function () {
+      let actualResponse = 5
+      let expectedResponse = '5'
+      let firstFunction = sender._functionOrder[0]
+      sender._responseProcessor(actualResponse, expectedResponse)
+      expect(sender._functionOrder[0]).not.toEqual(firstFunction)
+    })
+
+    it('should call the _handshake method', function () {
+      let actualResponse = 5
+      let expectedResponse = '5'
+      let handshakeSpy = jest.spyOn(sender, '_handshake')
+      handshakeSpy.mockClear()
+      sender._responseProcessor(actualResponse, expectedResponse)
+      expect(handshakeSpy).toHaveBeenCalled()
     })
   })
 })

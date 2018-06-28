@@ -24,6 +24,16 @@ describe('Sender', function () {
     })
   })
 
+  describe('checkResponse', () => {
+    it('calls _responseProcessor', () => {
+      let response = 'anything'
+      let expectedResponse = '250'
+      let processorSpy = jest.spyOn(sender, '_responseProcessor')
+      sender.checkResponse(response)
+      expect(processorSpy).toHaveBeenCalledWith(response, expectedResponse)
+    })
+  })
+
   describe('_handshake', () => {
     it('should call the first function of sender._functionOrder', () => {
       let connectionSpy = jest.spyOn(connection, 'write')

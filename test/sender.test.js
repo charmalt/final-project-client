@@ -82,4 +82,14 @@ describe('Sender', function () {
       })
     })
   })
+
+  describe('_responseProcessor', () => {
+    it('should console.log the response received', function () {
+      console.log = jest.fn()
+      let actualResponse = 5
+      let expectedResponse = '5'
+      sender._responseProcessor(actualResponse, expectedResponse)
+      expect(console.log).toHaveBeenCalledWith(actualResponse.toString())
+    })
+  })
 })

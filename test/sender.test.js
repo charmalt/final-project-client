@@ -57,5 +57,22 @@ describe('Sender', function () {
         expect(connectionSpy).toHaveBeenCalledWith('DATA')
       })
     })
+
+    describe('_transmissionMethod', () => {
+      beforeEach(() => {
+        connectionSpy.mockClear()
+      })
+
+      it('create an array of message DATA', () => {
+        sender._transmissionMethod()
+        expect(connectionSpy).toHaveBeenNthCalledWith(1, 'From: John\n')
+        expect(connectionSpy).toHaveBeenNthCalledWith(10, 'John\n')
+      })
+
+      it('transmits the termination dot', () => {
+        sender._transmissionMethod()
+        expect(connectionSpy).toHaveBeenCalledWith('\r\n.\r\n')
+      })
+    })
   })
 })

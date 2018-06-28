@@ -1,6 +1,7 @@
 /* globals describe, it, expect, jest, beforeEach */
 const MailClient = require('../lib/MailClient')
 jest.mock('net')
+jest.mock('../lib/sender')
 
 describe('MailClient', () => {
   let mailClient
@@ -13,8 +14,15 @@ describe('MailClient', () => {
   }
 
   let socketMock = require('net').Socket
+  let SenderMock = require('../lib/sender')
+
+  SenderMock.mockImplementation(() => {
+    return senderMock
+  })
+
   let senderMock = {
-    checkResponse: jest.fn()
+    checkResponse: jest.fn(),
+    send: jest.fn()
   }
 
   beforeEach(() => {
@@ -46,6 +54,17 @@ describe('MailClient', () => {
       let connectSpy = jest.spyOn(mailClient, '_connect')
       mailClient.send()
       expect(connectSpy).toHaveBeenCalled()
+    })
+
+    it('should create new sender object', () => {
+      mailClient.send()
+      expect(mailClient.sender).toBe(senderMock)
+    })
+
+    it('should call send on sender', () => {
+      mailClient.send()
+      let senderSpy = jest.spyOn(senderMock, 'send')
+      expect(senderSpy).toHaveBeenCalled()
     })
   })
 

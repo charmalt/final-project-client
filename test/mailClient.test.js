@@ -12,6 +12,8 @@ describe('MailClient', () => {
     DATA: 'From: John\nTo: Igor\nSubject: SMTP Feature Testing\n\nHi, Igor.\nThis is a test message.\nAnd this is line 3.\n\nYours,\nJohn'
   }
 
+  let socketMock = require('net').Socket
+
   beforeEach(() => {
     mailClient = new MailClient(clientPort, clientHost)
   })
@@ -34,5 +36,15 @@ describe('MailClient', () => {
 
   it('has a property of sender', () => {
     expect(mailClient.sender).toEqual(null)
+  })
+
+  describe('connect', () => {
+    it('should be responsive', () => {
+      expect(mailClient.connect).not.toEqual(undefined)
+    })
+    it('should assign a new socket to the connection property', () => {
+      mailClient.connect()
+      expect(mailClient.connection).toBeInstanceOf(socketMock)
+    })
   })
 })

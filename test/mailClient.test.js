@@ -54,7 +54,17 @@ describe('MailClient', () => {
 
     it('should set no delay to true', () => {
       let socketSpy = jest.spyOn(mailClient.connection, 'setNoDelay')
-      expect(socketSpy).toHaveBeenCalleWith(true)
+      expect(socketSpy).toHaveBeenCalledWith(true)
+    })
+    it('should call connect method with three arguments (port, host, function)', () => {
+      let socketSpy = jest.spyOn(mailClient.connection, 'connect')
+      let portHash = {port: clientPort, host: clientHost}
+      expect(socketSpy).toHaveBeenCalledWith(portHash, expect.any(Function))
+    })
+    it('should call ', function () {
+      let connectionSpy = jest.spyOn(mailClient.connection, 'on')
+      expect(connectionSpy).toHaveBeenCalledWith('data', expect.any(Function))
     })
   })
+  
 })

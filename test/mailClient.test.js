@@ -41,6 +41,14 @@ describe('MailClient', () => {
     expect(mailClient.sender).toEqual(null)
   })
 
+  describe('send', () => {
+    it('should call _connect', () => {
+      let connectSpy = jest.spyOn(mailClient, '_connect')
+      mailClient.send()
+      expect(connectSpy).toHaveBeenCalled()
+    })
+  })
+
   describe('_connect', () => {
     beforeEach(() => {
       mailClient._connect()

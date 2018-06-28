@@ -39,19 +39,22 @@ describe('MailClient', () => {
   })
 
   describe('connect', () => {
-    it('should be responsive', () => {
-      expect(mailClient.connect).not.toEqual(undefined)
+    beforeEach(() => {
+      mailClient.connect()
     })
 
     it('should assign a new socket to the connection property', () => {
-      mailClient.connect()
       expect(mailClient.connection).toBeInstanceOf(socketMock)
     })
 
     it('should set encoding of connection to utf-8', () => {
-      mailClient.connect()
       let socketSpy = jest.spyOn(mailClient.connection, 'setEncoding')
       expect(socketSpy).toHaveBeenCalledWith('utf-8')
+    })
+
+    it('should set no delay to true', () => {
+      let socketSpy = jest.spyOn(mailClient.connection, 'setNoDelay')
+      expect(socketSpy).toHaveBeenCalleWith(true)
     })
   })
 })

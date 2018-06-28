@@ -13,8 +13,6 @@ describe('Sender', function () {
   let connection = new Socket()
   let sender = new Sender(message, connection)
 
-  let connectionSpy = jest.spyOn(connection, 'write')
-
   describe('send', () => {
     it('should call handshake', () => {
       let handshakeSpy = jest.spyOn(sender, '_handshake')
@@ -29,17 +27,28 @@ describe('Sender', function () {
     })
   })
 
-  describe('_ehloMethod', () => {
-    it('should write EHLO to the socket', function () {
-      sender._ehloMethod()
-      expect(connectionSpy).toHaveBeenCalledWith('EHLO')
+  describe('Handshake methods', () => {
+    let connectionSpy = jest.spyOn(connection, 'write')
+    
+    describe('_ehloMethod', () => {
+      it('should write EHLO to the socket', function () {
+        sender._ehloMethod()
+        expect(connectionSpy).toHaveBeenCalledWith('EHLO')
+      })
     })
-  })
 
-  describe('_mailFromMethod', () => {
-    it("should write 'MAIL FROM:' plus the given email address", () => {
-      sender._mailFromMethod()
-      expect(connectionSpy).toHaveBeenCalledWith(`MAIL FROM: ${sender.message.MAIL_FROM}`)
+    describe('_mailFromMethod', () => {
+      it("should write 'MAIL FROM:' plus the given email address", () => {
+        sender._mailFromMethod()
+        expect(connectionSpy).toHaveBeenCalledWith(`MAIL FROM: ${sender.message.MAIL_FROM}`)
+      })
+    })
+
+    describe('_rcptToMethod', () => {
+      it("should write 'RCPT TO: ' plus the given email address", () => {
+        sender._rcptToMethod()
+        expect(connectionSpy).toHaveBeenCalledWith(`RCPT TO: ${sender.message.RCPT_TO}`)
+      })
     })
   })
 })

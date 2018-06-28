@@ -13,6 +13,9 @@ describe('MailClient', () => {
   }
 
   let socketMock = require('net').Socket
+  let senderMock = {
+    checkResponse: jest.fn()
+  }
 
   beforeEach(() => {
     mailClient = new MailClient(clientPort, clientHost)
@@ -56,15 +59,26 @@ describe('MailClient', () => {
       let socketSpy = jest.spyOn(mailClient.connection, 'setNoDelay')
       expect(socketSpy).toHaveBeenCalledWith(true)
     })
+
     it('should call connect method with three arguments (port, host, function)', () => {
       let socketSpy = jest.spyOn(mailClient.connection, 'connect')
       let portHash = {port: clientPort, host: clientHost}
       expect(socketSpy).toHaveBeenCalledWith(portHash, expect.any(Function))
     })
+
     it('should call ', function () {
       let connectionSpy = jest.spyOn(mailClient.connection, 'on')
       expect(connectionSpy).toHaveBeenCalledWith('data', expect.any(Function))
     })
   })
-  
+
+  describe('_parseResponse', () => {
+    it('should call Sender#checkResponse and pass data', () => {
+      mailClient.sender = senderMock
+      let spyOnSender = jest.spyOn(mailClient.sender, 'checkResponse')
+      let data = 5
+      mailClient._parseResponse(data)
+      expect(spyOnSender).toHaveBeenCalledWith('5')
+    })
+  })
 })

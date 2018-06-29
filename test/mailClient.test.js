@@ -135,10 +135,10 @@ describe('MailClient', () => {
       expect(mailClient.receiver).toBe(receiverMock)
     })
 
-    xit('should call receive on receiver', () => {
-      mailClient.send()
-      let senderSpy = jest.spyOn(senderMock, 'send')
-      expect(senderSpy).toHaveBeenCalled()
+    it('should call receive on receiver', () => {
+      mailClient.receive()
+      let receiverSpy = jest.spyOn(receiverMock, 'receive')
+      expect(receiverSpy).toHaveBeenCalled()
     })
 
   })

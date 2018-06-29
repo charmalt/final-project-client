@@ -25,16 +25,18 @@ describe('Receiver', () => {
     })
   })
 
-  describe('_helloMethod', () => {
-    let connectionSpy = jest.spyOn(connection, 'write')
-    it('should write "Hello" to the connection', function () {
-      receiver._helloMethod()
-      expect(connectionSpy).toHaveBeenCalledWith('Hello')
+  describe('handshake methods', () => {
+    describe('_helloMethod', () => {
+      let connectionSpy = jest.spyOn(connection, 'write')
+      it('should write "Hello" to the connection', function () {
+        receiver._helloMethod()
+        expect(connectionSpy).toHaveBeenCalledWith('Hello')
+      })
     })
   })
 
   describe('checkResponse', () => {
-    xit('calls _responseProcessor', () => {
+    it('calls _responseProcessor', () => {
       let response = 'anything'
       let expectedResponse = '250'
       let processorSpy = jest.spyOn(receiver, '_responseProcessor')

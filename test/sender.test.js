@@ -46,6 +46,15 @@ describe('Sender', function () {
       sender._handshake()
       expect(connectionSpy).toHaveBeenCalled()
     })
+
+    it('should console log "Disconnected from SMTP Server" if connection terminated successfully', function () {
+      let connectionSpy = jest.spyOn(connection, 'end')
+      connectionSpy.mockReturnValueOnce(true)
+      console.log = jest.fn()
+      sender._functionOrder = []
+      sender._handshake()
+      expect(console.log).toHaveBeenCalledWith('Disconnected from SMTP Server')
+    })
   })
 
   describe('Handshake methods', () => {

@@ -1,0 +1,3 @@
+Mail = require('../lib/mailClient')
+mailReceiver = new Mail(1337,'192.168.48.177')
+mailReceiver.receive()

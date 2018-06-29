@@ -156,6 +156,5 @@ describe('MailClient', () => {
       let receiverSpy = jest.spyOn(receiverMock, 'receive')
       expect(receiverSpy).toHaveBeenCalled()
     })
-
   })
 })

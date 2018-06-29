@@ -25,6 +25,29 @@ describe('Receiver', () => {
     })
   })
 
+  describe('_handshake', () => {
+    it('should call the first function of sender._functionOrder', () => {
+      let connectionSpy = jest.spyOn(connection, 'write')
+      receiver._handshake()
+      expect(connectionSpy).toHaveBeenCalledWith('Hello')
+    })
+    it('should call connection.end if sender._functionOrder is empty', function () {
+      let connectionSpy = jest.spyOn(connection, 'end')
+      receiver._functionOrder = []
+      receiver._handshake()
+      expect(connectionSpy).toHaveBeenCalled()
+    })
+
+    it('should console log "Disconnected from POP Server" if connection terminated successfully', function () {
+      let connectionSpy = jest.spyOn(connection, 'end')
+      connectionSpy.mockReturnValueOnce(true)
+      console.log = jest.fn()
+      receiver._functionOrder = []
+      receiver._handshake()
+      expect(console.log).toHaveBeenCalledWith('Disconnected from POP Server')
+    })
+  })
+
   describe('handshake methods', () => {
     let connectionSpy = jest.spyOn(connection, 'write')
     describe('_helloMethod', () => {
@@ -84,6 +107,10 @@ describe('Receiver', () => {
       handshakeSpy.mockClear()
       receiver._responseProcessor(actualResponse, expectedResponse)
       expect(handshakeSpy).toHaveBeenCalled()
+    })
+
+    xit('should check if the functionOrder array is at least two', function () {
+
     })
   })
 

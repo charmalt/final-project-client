@@ -108,4 +108,13 @@ describe('MailClient', () => {
       expect(spyOnSender).toHaveBeenCalledWith('5')
     })
   })
+
+  describe('receive', () => {
+    it('should call _connect', () => {
+      let connectSpy = jest.spyOn(mailClient, '_connect')
+      mailClient.receive()
+      expect(connectSpy).toHaveBeenCalled()
+    })
+    
+  })
 })

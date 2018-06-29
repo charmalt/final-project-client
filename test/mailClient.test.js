@@ -32,6 +32,7 @@ describe('MailClient', () => {
   }
 
   let receiverMock = {
+    checkResponse: jest.fn(),
     receive: jest.fn()
   }
 
@@ -60,11 +61,6 @@ describe('MailClient', () => {
   })
 
   describe('send', () => {
-    xit('should set connectionMode to send', () => {
-      mailClient.send()
-      expect(mailClient.connectionMode).toEqual('send')
-    })
-
     it('should call _connect', () => {
       let connectSpy = jest.spyOn(mailClient, '_connect')
       mailClient.send()
@@ -74,6 +70,11 @@ describe('MailClient', () => {
     it('should create new sender object', () => {
       mailClient.send()
       expect(mailClient.sender).toBe(senderMock)
+    })
+
+    it('should set connectionModeOperator to sender', () => {
+      mailClient.send()
+      expect(mailClient.connectionModeOperator).toEqual(mailClient.sender)
     })
 
     it('should call send on sender', () => {
@@ -116,11 +117,21 @@ describe('MailClient', () => {
 
   describe('_parseResponse', () => {
     it('should call Sender#checkResponse and pass data', () => {
-      mailClient.sender = senderMock
+      mailClient.send()
+      //mailClient.sender = senderMock
       let spyOnSender = jest.spyOn(mailClient.sender, 'checkResponse')
       let data = 5
       mailClient._parseResponse(data)
       expect(spyOnSender).toHaveBeenCalledWith('5')
+    })
+
+    it('should call Receiver#checkResponse and pass data', () => {
+      mailClient.receive()
+      //mailClient.sender = senderMock
+      let spyOnReceiver = jest.spyOn(mailClient.receiver, 'checkResponse')
+      let data = 5
+      mailClient._parseResponse(data)
+      expect(spyOnReceiver).toHaveBeenCalledWith('5')
     })
   })
 
@@ -133,6 +144,11 @@ describe('MailClient', () => {
     it('should create new receiver object', () => {
       mailClient.receive()
       expect(mailClient.receiver).toBe(receiverMock)
+    })
+
+    it('should set connectionModeOperator to receiver', () => {
+      mailClient.receive()
+      expect(mailClient.connectionModeOperator).toEqual(mailClient.receiver)
     })
 
     it('should call receive on receiver', () => {

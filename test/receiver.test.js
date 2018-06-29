@@ -57,12 +57,24 @@ describe('Receiver', () => {
       })
     })
 
-    describe('_receiveMessage', () => [
+    describe('_receiveMessage', () => {
       it('should write "Please Send Message(s)" to the connection', function () {
         receiver._receiveMessage()
         expect(connectionSpy).toHaveBeenCalledWith('Please Send Message(s)')
       })
-    ])
+
+      it('should change the _rcptMode to true', function () {
+        receiver._receiveMessage()
+        expect(receiver._rcptMode).toBeTruthy()
+      })
+    })
+
+    describe('_quitMethod', () => {
+      it('should write QUIT', function () {
+        receiver._quitMethod()
+        expect(connectionSpy).toHaveBeenCalledWith('QUIT')
+      })
+    })
   })
 
   describe('checkResponse', () => {
@@ -72,6 +84,20 @@ describe('Receiver', () => {
       let processorSpy = jest.spyOn(receiver, '_responseProcessor')
       receiver.checkResponse(response)
       expect(processorSpy).toHaveBeenCalledWith(response, expectedResponse)
+    })
+
+    it('should push response into message array in rcpt mode', function () {
+      let response = 5
+      receiver._rcptMode = true
+      receiver.checkResponse(response)
+      expect(receiver.messages).toContain(response.toString())
+    })
+
+    it('should change _rcptMode to false once the message has been received', function () {
+      let response = 5
+      receiver._rcptMode = true
+      receiver.checkResponse(response)
+      expect(receiver._rcptMode).toBeFalsy()
     })
   })
 
@@ -107,10 +133,6 @@ describe('Receiver', () => {
       handshakeSpy.mockClear()
       receiver._responseProcessor(actualResponse, expectedResponse)
       expect(handshakeSpy).toHaveBeenCalled()
-    })
-
-    xit('should check if the functionOrder array is at least two', function () {
-
     })
   })
 

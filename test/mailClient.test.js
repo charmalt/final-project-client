@@ -2,6 +2,7 @@
 const MailClient = require('../lib/MailClient')
 jest.mock('net')
 jest.mock('../lib/sender')
+jest.mock('../lib/receiver')
 
 describe('MailClient', () => {
   let mailClient
@@ -15,14 +16,23 @@ describe('MailClient', () => {
 
   let socketMock = require('net').Socket
   let SenderMock = require('../lib/sender')
+  let ReceiverMock = require('../lib/receiver')
 
   SenderMock.mockImplementation(() => {
     return senderMock
   })
 
+  ReceiverMock.mockImplementation(() => {
+    return receiverMock
+  })
+
   let senderMock = {
     checkResponse: jest.fn(),
     send: jest.fn()
+  }
+
+  let receiverMock = {
+    receive: jest.fn()
   }
 
   beforeEach(() => {
@@ -50,6 +60,11 @@ describe('MailClient', () => {
   })
 
   describe('send', () => {
+    xit('should set connectionMode to send', () => {
+      mailClient.send()
+      expect(mailClient.connectionMode).toEqual('send')
+    })
+
     it('should call _connect', () => {
       let connectSpy = jest.spyOn(mailClient, '_connect')
       mailClient.send()
@@ -115,6 +130,16 @@ describe('MailClient', () => {
       mailClient.receive()
       expect(connectSpy).toHaveBeenCalled()
     })
-    
+    it('should create new receiver object', () => {
+      mailClient.receive()
+      expect(mailClient.receiver).toBe(receiverMock)
+    })
+
+    xit('should call receive on receiver', () => {
+      mailClient.send()
+      let senderSpy = jest.spyOn(senderMock, 'send')
+      expect(senderSpy).toHaveBeenCalled()
+    })
+
   })
 })

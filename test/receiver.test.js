@@ -26,13 +26,20 @@ describe('Receiver', () => {
   })
 
   describe('handshake methods', () => {
+    let connectionSpy = jest.spyOn(connection, 'write')
     describe('_helloMethod', () => {
-      let connectionSpy = jest.spyOn(connection, 'write')
       it('should write "Hello" to the connection', function () {
         receiver._helloMethod()
         expect(connectionSpy).toHaveBeenCalledWith('Hello')
       })
     })
+
+    describe('_receiveMessage', () => [
+      it('should write "Please Send Message(s)" to the connection', function () {
+        receiver._receiveMessage()
+        expect(connectionSpy).toHaveBeenCalledWith('Please Send Message(s)')
+      })
+    ])
   })
 
   describe('checkResponse', () => {

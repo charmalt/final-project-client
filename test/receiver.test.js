@@ -31,14 +31,14 @@ describe('Receiver', () => {
       receiver._handshake()
       expect(connectionSpy).toHaveBeenCalledWith('Hello')
     })
-    it('should call connection.end if sender._functionOrder is empty', function () {
+    it('should call connection.end if sender._functionOrder is empty', () => {
       let connectionSpy = jest.spyOn(connection, 'end')
       receiver._functionOrder = []
       receiver._handshake()
       expect(connectionSpy).toHaveBeenCalled()
     })
 
-    it('should console log "Disconnected from POP Server" if connection terminated successfully', function () {
+    it('should console log "Disconnected from POP Server" if connection terminated successfully', () => {
       let connectionSpy = jest.spyOn(connection, 'end')
       connectionSpy.mockReturnValueOnce(true)
       console.log = jest.fn()
@@ -51,26 +51,26 @@ describe('Receiver', () => {
   describe('handshake methods', () => {
     let connectionSpy = jest.spyOn(connection, 'write')
     describe('_helloMethod', () => {
-      it('should write "Hello" to the connection', function () {
+      it('should write "Hello" to the connection', () => {
         receiver._helloMethod()
         expect(connectionSpy).toHaveBeenCalledWith('Hello')
       })
     })
 
     describe('_receiveMessage', () => {
-      it('should write "Please Send Message(s)" to the connection', function () {
+      it('should write "Please Send Message(s)" to the connection', () => {
         receiver._receiveMessage()
-        expect(connectionSpy).toHaveBeenCalledWith('Please Send Message(s)')
+        expect(connectionSpy).toHaveBeenCalledWith('MessageRequest')
       })
 
-      it('should change the _rcptMode to true', function () {
+      it('should change the _rcptMode to true', () => {
         receiver._receiveMessage()
         expect(receiver._rcptMode).toBeTruthy()
       })
     })
 
     describe('_quitMethod', () => {
-      it('should write QUIT', function () {
+      it('should write QUIT', () => {
         receiver._quitMethod()
         expect(connectionSpy).toHaveBeenCalledWith('QUIT')
       })
@@ -86,14 +86,14 @@ describe('Receiver', () => {
       expect(processorSpy).toHaveBeenCalledWith(response, expectedResponse)
     })
 
-    it('should push response into message array in rcpt mode', function () {
+    it('should push response into message array in rcpt mode', () => {
       let response = 5
       receiver._rcptMode = true
       receiver.checkResponse(response)
       expect(receiver.messages).toContain(response.toString())
     })
 
-    it('should change _rcptMode to false once the message has been received', function () {
+    it('should change _rcptMode to false once the message has been received', () => {
       let response = 5
       receiver._rcptMode = true
       receiver.checkResponse(response)
@@ -102,15 +102,15 @@ describe('Receiver', () => {
   })
 
   describe('_responseProcessor', () => {
-    it('should console.log the response received', function () {
+    it('should console.log the response received', () => {
       console.log = jest.fn()
       let actualResponse = 5
       let expectedResponse = '5'
       receiver._responseProcessor(actualResponse, expectedResponse)
-      expect(console.log).toHaveBeenCalledWith(actualResponse.toString())
+      expect(console.log).toHaveBeenCalledWith('SERVER SAYS:\n' + actualResponse.toString())
     })
 
-    it('should call connection.end if response differs from expected response', function () {
+    it('should call connection.end if response differs from expected response', () => {
       let connectionSpy = jest.spyOn(connection, 'end')
       let actualResponse = 5
       let expectedResponse = '6'
@@ -118,7 +118,7 @@ describe('Receiver', () => {
       expect(connectionSpy).toHaveBeenCalled()
     })
 
-    it('should remove the first member of sender._functionOrder', function () {
+    it('should remove the first member of sender._functionOrder', () => {
       let actualResponse = 5
       let expectedResponse = '5'
       let firstFunction = receiver._functionOrder[0]
@@ -126,7 +126,7 @@ describe('Receiver', () => {
       expect(receiver._functionOrder[0]).not.toEqual(firstFunction)
     })
 
-    it('should call the _handshake method', function () {
+    it('should call the _handshake method', () => {
       let actualResponse = 5
       let expectedResponse = '5'
       let handshakeSpy = jest.spyOn(receiver, '_handshake')

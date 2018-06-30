@@ -109,7 +109,7 @@ describe('MailClient', () => {
       expect(socketSpy).toHaveBeenCalledWith(portHash, expect.any(Function))
     })
 
-    it('should call .on method with arguments', function () {
+    it('should call .on method with arguments', () => {
       let connectionSpy = jest.spyOn(mailClient.connection, 'on')
       expect(connectionSpy).toHaveBeenCalledWith('data', expect.any(Function))
     })

@@ -2,9 +2,13 @@ const CreateUser = require('../lib/createUser.js')
 
 describe('CreateUser', () => {
   let createUser
+  let fakeHash = '$2b$10$gYJmwWUqH1tW02V4IMFpvuLY3WkV22u/utobWFF58KzPE5XcBb3Te'
 
   beforeEach(() => {
-    createUser = new CreateUser()
+    let createPasswordMock = {
+      generate: jest.fn(() => { return fakeHash })
+    }
+    createUser = new CreateUser(createPasswordMock)
   })
 
   describe('saveName', () => {
@@ -19,7 +23,7 @@ describe('CreateUser', () => {
     it('adds password to class instance', () => {
       let password = 'pretendHash'
       createUser.savePassword(password)
-      expect(createUser.password).toEqual(password)
+      expect(createUser.password).toEqual(fakeHash)
     })
   })
 })

@@ -16,12 +16,13 @@
     "client",
     "mail"
   ],
-  "author": "Igor Ryabchuk, George Sykes, Ben Furber, John Newman, Charlene Chetcuti",
+  "author": "Charlene Chetcuti, Ben Furber, John Newman, Igor Ryabchuk, George Sykes",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/charmalt/final-project-client/issues"
   },
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",

@@ -31,6 +31,10 @@
     "morgan": "~1.9.0",
     "sinon": "^6.0.1"
   },
+  "dependencies": {
+    "jake": "^8.0.16",
+    "pg": "^6.1.0"
+  },
   "homepage": "https://github.com/charmalt/final-project-smtp#readme",
   "devDependencies": {
     "eslint": "^5.0.1",
@@ -41,5 +45,10 @@
     "eslint-plugin-standard": "^3.1.0",
     "jest": "^23.2.0",
     "standard": "^11.0.1"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   }
 }

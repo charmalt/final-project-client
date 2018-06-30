@@ -58,7 +58,7 @@ describe('Receiver', () => {
     })
 
     describe('_receiveMessage', () => {
-      it('should write "Please Send Message(s)" to the connection', () => {
+      it('should write "MessageRequest" to the connection', () => {
         receiver._receiveMessage()
         expect(connectionSpy).toHaveBeenCalledWith('MessageRequest')
       })
@@ -108,6 +108,14 @@ describe('Receiver', () => {
       let expectedResponse = '5'
       receiver._responseProcessor(actualResponse, expectedResponse)
       expect(console.log).toHaveBeenCalledWith('SERVER SAYS:\n' + actualResponse.toString())
+    })
+
+    it('should console.log error code on wrong response', function () {
+      console.log = jest.fn()
+      let actualResponse = 5
+      let expectedResponse = '6'
+      receiver._responseProcessor(actualResponse, expectedResponse)
+      expect(console.log).toHaveBeenCalledWith('ERROR CODE: ' + actualResponse.toString() + ' received. Connection closed.')
     })
 
     it('should call connection.end if response differs from expected response', () => {

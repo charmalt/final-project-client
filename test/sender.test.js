@@ -119,7 +119,15 @@ describe('Sender', () => {
       let actualResponse = 5
       let expectedResponse = '5'
       sender._responseProcessor(actualResponse, expectedResponse)
-      expect(console.log).toHaveBeenCalledWith(actualResponse.toString())
+      expect(console.log).toHaveBeenCalledWith('SERVER SAYS:\n' + actualResponse.toString())
+    })
+
+    it('should console.log the wrong response received', () => {
+      console.log = jest.fn()
+      let actualResponse = 5
+      let expectedResponse = '6'
+      sender._responseProcessor(actualResponse, expectedResponse)
+      expect(console.log).toHaveBeenCalledWith('ERROR CODE: ' + actualResponse.toString() + ' received. Connection closed.')
     })
 
     it('should call connection.end if response differs from expected response', () => {

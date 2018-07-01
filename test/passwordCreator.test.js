@@ -1,9 +1,9 @@
 const PasswordCreator = require('../lib/passwordCreator.js')
 
 describe('PasswordCreator', () => {
-  describe('generate', async () => {
+  it('generate', () => {
     let passwordCreator = new PasswordCreator()
-    let hash = await passwordCreator.generate()
-    expect(hash.length).toEqual(60)
+    passwordCreator.generate('string')
+    expect(passwordCreator.password.length).toEqual(60)
   })
 })

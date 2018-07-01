@@ -7,12 +7,14 @@ describe('Full create a user journey', () => {
     createUser = new CreateUser()
   })
 
-  it('User details saved in object', () => {
+  it('User name saved in object', () => {
     let name = 'albert'
-    let password = '1358264tw'
     createUser.saveName(name)
-    expect(createUser.name).not.toEqual(null)
-    createUser.savePassword(password)
+    expect(createUser.name).toEqual(name)
+  })
+
+  it('User password saved in object', () => {
+    createUser.savePassword('string')
     expect(createUser.password.length).toEqual(60)
   })
 })

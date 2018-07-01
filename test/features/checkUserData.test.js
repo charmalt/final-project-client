@@ -12,11 +12,22 @@ describe('Check User Existence and Data', () => {
 
   describe('Check user exists', () => {
     it('should return true if the user exists', done => {
-      let result = () => checkUserData.nameCheck(name)()
+      console.log('BEGIN MY TEST')
+      let resultCHECK = (() => checkUserData.nameCheck(name))()
+      console.log('EXECUTE MY FUNCTION', resultCHECK)
       setTimeout(() => {
-        expect(result).toBeTruthy()
+        expect(resultCHECK).toBe(true)
         done()
-      }, 100)
+      }, 4000)
+      console.log('INSIDE THE TIMEOUT', resultCHECK)
+    })
+    xit('should return false if the user does not exist', done => {
+      let result = (() => checkUserData.nameCheck('BOB'))()
+      setTimeout(() => {
+        console.log('I AM THE RESULT', result)
+        expect(result).toEqual(false)
+        done()
+      }, 1000)
     })
   })
 })

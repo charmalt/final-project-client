@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from './header'
+import SideBar from './SideBar'
 class App extends Component {
   constructor(props) {
   super(props)
@@ -19,6 +20,7 @@ class App extends Component {
     return (
       <div className="App">
         < Header />
+        < SideBar />
       </div>
     );
   }

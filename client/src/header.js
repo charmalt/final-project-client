@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 
 class Header extends Component {
-  render() {
+  render () {
     return (
       <div className="Header">
-        Header
+        Retro Email
       </div>
-    );
+    )
   }
-
 }
 
-export default Header;
+export default Header

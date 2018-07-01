@@ -1,0 +1,27 @@
+html {
+  margin: 0
+  padding: 0
+}
+
+.App {margin: 30px;
+height: 600px;}
+
+.Header {
+  overflow: hidden;
+  background-color: #D3D3D3;
+  padding: 20px 10px;
+  font-family: 'VT323', monospace;
+  font-size: 40px;
+  text-align: center;
+}
+
+.sideBar {
+  width:220px;
+  background-color: #FFED66;
+  height: 100%;
+
+}
+
+/* #FFFFEA
+#FFED66
+#00CECB */

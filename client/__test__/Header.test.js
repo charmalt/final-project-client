@@ -9,6 +9,6 @@ Enzyme.configure({adapter: new Adapter()})
 describe('<Header/>', () => {
   it('It renders a header', () => {
     const header = shallow(<Header />)
-    expect(header.text()).toContain('Header')
+    expect(header.text()).toContain('Retro Email')
   })
 })

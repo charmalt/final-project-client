@@ -62,5 +62,10 @@ describe('SMTPConnection', () => {
     it('creates a new handshake', () => {
       expect(handshakeConnectionSpy).toHaveBeenCalledWith(connectionMock)
     })
+
+    it('checks the response', () => {
+      let mockHandshakeSpy = jest.spyOn(mockHandshake, 'checkResponse')
+      expect(mockHandshakeSpy).toHaveBeenCalledWith(data)
+    })
   })
 })

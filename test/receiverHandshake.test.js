@@ -5,13 +5,6 @@ jest.mock('net')
 
 describe('Receiver', () => {
   let Socket = require('net').Socket
-  let messageJSON = {
-    "messageObject": {
-      "mailFrom": "john@john.com",
-      "rcptTo": "igor@john.com",
-      "messageBody": "Hi, Igor\n"
-    }
-  }
   let connection = new Socket()
   let receiver
   beforeEach(() => {
@@ -143,5 +136,4 @@ describe('Receiver', () => {
       expect(handshakeSpy).toHaveBeenCalled()
     })
   })
-
 })

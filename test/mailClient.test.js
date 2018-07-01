@@ -84,37 +84,6 @@ describe('MailClient', () => {
     })
   })
 
-  describe('_connect', () => {
-    beforeEach(() => {
-      mailClient._connect()
-    })
-
-    it('should assign a new socket to the connection property', () => {
-      expect(mailClient.connection).toBeInstanceOf(socketMock)
-    })
-
-    it('should set encoding of connection to utf-8', () => {
-      let socketSpy = jest.spyOn(mailClient.connection, 'setEncoding')
-      expect(socketSpy).toHaveBeenCalledWith('utf-8')
-    })
-
-    it('should set no delay to true', () => {
-      let socketSpy = jest.spyOn(mailClient.connection, 'setNoDelay')
-      expect(socketSpy).toHaveBeenCalledWith(true)
-    })
-
-    it('should call connect method with three arguments (port, host, function)', () => {
-      let socketSpy = jest.spyOn(mailClient.connection, 'connect')
-      let portHash = {port: clientPort, host: clientHost}
-      expect(socketSpy).toHaveBeenCalledWith(portHash, expect.any(Function))
-    })
-
-    it('should call .on method with arguments', () => {
-      let connectionSpy = jest.spyOn(mailClient.connection, 'on')
-      expect(connectionSpy).toHaveBeenCalledWith('data', expect.any(Function))
-    })
-  })
-
   describe('_parseResponse', () => {
     it('should call Sender#checkResponse and pass data', () => {
       mailClient.send()

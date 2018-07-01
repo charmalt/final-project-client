@@ -38,6 +38,7 @@ describe('<Body/>', () => {
   it('Compose State starts as false', () => {
     expect(body.state('compose')).toBeFalsy()
   })
+
   it('Compose State is set to true when compose method is run', () => {
     body.instance().compose()
     expect(body.state('compose')).toBeTruthy()

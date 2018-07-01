@@ -1,6 +1,6 @@
 /* global it, describe, test, expect */
 
-const Sender = require('../lib/sender')
+const SenderHandshakeFactory = require('../lib/senderHandshake').SenderHandshakeFactory
 jest.mock('net')
 
 describe('Sender', () => {
@@ -13,7 +13,7 @@ describe('Sender', () => {
   let connection = new Socket()
   let sender
   beforeEach(() => {
-    sender = new Sender(message, connection)
+    sender = SenderHandshakeFactory.build(message, connection)
   })
 
   describe('send', () => {

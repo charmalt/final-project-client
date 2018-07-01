@@ -1,6 +1,6 @@
 /* global it, describe, test, expect */
 
-const ReceiverHandshakeFactory = require('../lib/receiver').ReceiverHandshakeFactory
+const ReceiverHandshakeFactory = require('../lib/receiverHandshake').ReceiverHandshakeFactory
 jest.mock('net')
 
 describe('Receiver', () => {

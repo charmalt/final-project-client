@@ -1,6 +1,6 @@
 const CreateUser = require('../../lib/createUser')
 
-describe('Full create a user journey', () => {
+xdescribe('Full create a user journey', () => {
   let createUser
 
   beforeEach(() => {

@@ -22,7 +22,7 @@
     "url": "https://github.com/charmalt/final-project-client/issues"
   },
   "dependencies": {
-    "bcrypt": "2.0.1",
+    "bcrypt": "^2.0.1",
     "jake": "^8.0.16",
     "pg": "^6.1.0"
   },

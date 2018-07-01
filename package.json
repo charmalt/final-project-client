@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "test": "jest --coverage",
-    "lint": "eslint src/js"
+    "lint": "eslint src/js",
+    "start": "node ./app"
   },
   "repository": {
     "type": "git",

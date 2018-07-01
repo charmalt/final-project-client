@@ -1,5 +1,5 @@
 import React from 'react'
-import Enzyme, {shallow} from 'enzyme'
+import Enzyme, {shallow, mount} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import Body from '../src/body'
 
@@ -17,8 +17,10 @@ Body.__Rewire__('MainArea', MockMainArea)
 
 describe('<Body/>', () => {
   let body
+  let wrapper
   beforeEach(() => {
     body = shallow(<Body />)
+    wrapper = mount(<Body />)
   })
 
   it('It has a inbox button', () => {
@@ -31,5 +33,19 @@ describe('<Body/>', () => {
 
   it('renders Body component', () => {
     expect(body.find(MockMainArea).length).toEqual(1)
+  })
+
+  it('Compose State starts as false', () => {
+    expect(body.state('compose')).toBeFalsy()
+  })
+  it('Compose State is set to true when compose method is run', () => {
+    body.instance().compose()
+    expect(body.state('compose')).toBeTruthy()
+  })
+
+  it('Compose State is set to false when inbox method is run', () => {
+    body.instance().compose()
+    body.instance().inbox()
+    expect(body.state('compose')).toBeFalsy()
   })
 })

@@ -47,7 +47,7 @@ describe('CreateUser', () => {
       createUser.name = name
       createUser.password = fakeHash
       createUser.create()
-      expect(clientDBSPy).toHaveBeenCalledWith(`INSERT INTO user (name, password) VALUES ('${name}', '${fakeHash}');`)
+      expect(clientDBSPy).toHaveBeenCalledWith(`INSERT INTO users (name, password) VALUES ('${name}', '${fakeHash}');`)
     })
   })
 })

@@ -1,6 +1,6 @@
 /* global it, describe, test, expect */
 
-const Receiver = require('../lib/receiver')
+const ReceiverHandshakeFactory = require('../lib/receiver').ReceiverHandshakeFactory
 jest.mock('net')
 
 describe('Receiver', () => {
@@ -15,7 +15,7 @@ describe('Receiver', () => {
   let connection = new Socket()
   let receiver
   beforeEach(() => {
-    receiver = new Receiver(connection)
+    receiver = ReceiverHandshakeFactory.build(connection)
   })
   describe('receive method', () => {
     it('calls _handshake', () => {

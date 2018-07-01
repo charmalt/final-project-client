@@ -1,30 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
   state = {
-    users: []
+    emails: []
   };
 
   componentDidMount() {
-    fetch('/')
-      .then(res => res.json())
-      .then(users => this.setState({ users }));
+    fetch('/api/emails')
+      .then(emails => emails.json())
+      .then(emails => this.setState({ emails }));
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
-        )}
-        </p>
+          {this.state.emails.map(email =>
+          <div className={email.id}>{email.mailto}</div>
+          )}
       </div>
     );
   }

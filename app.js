@@ -3,13 +3,16 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3001
 
-app.get('/', (req, res) => {
+app.get('/api/emails', (req, res) => {
   res.json([{
     id: 1,
-    username: 'samsepi0l'
+    mailto: 'charlene@charlene.com'
   }, {
     id: 2,
-    username: 'D0loresH4ze'
+    mailto: 'igor@igor.com'
+  }, {
+    id: 3,
+    mailto: 'john@john.com'
   }])
 })
 

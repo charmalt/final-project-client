@@ -53,7 +53,7 @@ describe('SMTPConnection', () => {
   })
 
   describe('parseResponse', () => {
-    const data = 'DATA'
+    const data = 123
 
     beforeEach(() => {
       connection.parseResponse(data)
@@ -65,7 +65,7 @@ describe('SMTPConnection', () => {
 
     it('checks the response', () => {
       let mockHandshakeSpy = jest.spyOn(mockHandshake, 'checkResponse')
-      expect(mockHandshakeSpy).toHaveBeenCalledWith(data)
+      expect(mockHandshakeSpy).toHaveBeenCalledWith(data.toString())
     })
   })
 })

@@ -84,26 +84,6 @@ describe('MailClient', () => {
     })
   })
 
-  describe('_parseResponse', () => {
-    it('should call Sender#checkResponse and pass data', () => {
-      mailClient.send()
-      //mailClient.sender = senderMock
-      let spyOnSender = jest.spyOn(mailClient.sender, 'checkResponse')
-      let data = 5
-      mailClient._parseResponse(data)
-      expect(spyOnSender).toHaveBeenCalledWith('5')
-    })
-
-    it('should call Receiver#checkResponse and pass data', () => {
-      mailClient.receive()
-      //mailClient.sender = senderMock
-      let spyOnReceiver = jest.spyOn(mailClient.receiver, 'checkResponse')
-      let data = 5
-      mailClient._parseResponse(data)
-      expect(spyOnReceiver).toHaveBeenCalledWith('5')
-    })
-  })
-
   describe('receive', () => {
     it('should call _connect', () => {
       let connectSpy = jest.spyOn(mailClient, '_connect')

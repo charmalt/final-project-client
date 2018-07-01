@@ -7,7 +7,10 @@ describe('SMTPConnection', () => {
   const serverHost = 'host'
   let connectionObject = { port: serverPort, host: serverHost }
   let socketMock = require('net').Socket
-  let connectionMock = { connect: jest.fn() }
+  let connectionMock = {
+    connect: jest.fn(),
+    setEncoding: jest.fn()
+  }
   let connectionSpy
 
   beforeEach(() => {
@@ -24,5 +27,10 @@ describe('SMTPConnection', () => {
     expect(connectionSpy).toHaveBeenCalledWith(connectionObject, () => {
       console.log('Connected to server')
     })
+  })
+
+  it('should set encoding of connection to utf-8', () => {
+    let socketSpy = jest.spyOn(connectionMock, 'setEncoding')
+    expect(socketSpy).toHaveBeenCalledWith('utf-8')
   })
 })

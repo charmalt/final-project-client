@@ -9,7 +9,8 @@ describe('SMTPConnection', () => {
   let socketMock = require('net').Socket
   let connectionMock = {
     connect: jest.fn(),
-    setEncoding: jest.fn()
+    setEncoding: jest.fn(),
+    setNoDelay: jest.fn()
   }
   let connectionSpy
 
@@ -32,5 +33,10 @@ describe('SMTPConnection', () => {
   it('should set encoding of connection to utf-8', () => {
     let socketSpy = jest.spyOn(connectionMock, 'setEncoding')
     expect(socketSpy).toHaveBeenCalledWith('utf-8')
+  })
+
+  it('should set no delay to true', () => {
+    let socketSpy = jest.spyOn(connectionMock, 'setNoDelay')
+    expect(socketSpy).toHaveBeenCalledWith(true)
   })
 })

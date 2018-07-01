@@ -14,9 +14,9 @@ height: 600px;}
   font-size: 40px;
   text-align: center;
 }
-
+.main {height: 100%}
 .sideBar {
-  width:220px;
+  width:15%;
   background-color: #FFED66;
   height: 100%;
 

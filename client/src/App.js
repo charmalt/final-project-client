@@ -1,29 +1,29 @@
 import React, { Component } from 'react'
 import Header from './header'
-import SideBar from './SideBar'
+import Body from './body'
+
 class App extends Component {
-  constructor(props) {
-  super(props)
-  this.state = {
-    emails: []
+  constructor (props) {
+    super(props)
+    this.state = {
+      emails: []
+    }
   }
-}
 
-
-  componentDidMount() {
+  componentDidMount () {
     fetch('/api/emails')
       .then(emails => emails.json())
-      .then(emails => this.setState({ emails }));
+      .then(emails => this.setState({ emails }))
   }
 
-  render() {
+  render () {
     return (
       <div className="App">
         < Header />
-        < SideBar />
+        < Body />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

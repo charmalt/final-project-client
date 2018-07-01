@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'
+import Header from './header'
 class App extends Component {
-  state = {
+  constructor(props) {
+  super(props)
+  this.state = {
     emails: []
-  };
+  }
+}
+
 
   componentDidMount() {
     fetch('/api/emails')
@@ -14,9 +18,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          {this.state.emails.map(email =>
-          <div className={email.id}>{email.mailto}</div>
-          )}
+        < Header />
       </div>
     );
   }

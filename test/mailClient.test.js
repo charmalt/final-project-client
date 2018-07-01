@@ -1,8 +1,8 @@
 /* globals describe, it, expect, jest, beforeEach */
 const MailClient = require('../lib/MailClient')
 jest.mock('net')
-jest.mock('../lib/sender')
-jest.mock('../lib/receiver')
+jest.mock('../lib/senderHandshake')
+jest.mock('../lib/receiverHandshake')
 
 describe('MailClient', () => {
   let mailClient

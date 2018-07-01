@@ -16,10 +16,10 @@ describe('Sender', () => {
     sender = SenderHandshakeFactory.build(message, connection)
   })
 
-  describe('send', () => {
+  describe('initiateHandshake', () => {
     it('should call handshake', () => {
       let handshakeSpy = jest.spyOn(sender, '_handshake')
-      sender.send()
+      sender.initiateHandshake()
       expect(handshakeSpy).toHaveBeenCalled()
     })
   })

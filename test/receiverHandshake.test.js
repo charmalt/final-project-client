@@ -17,10 +17,10 @@ describe('Receiver', () => {
   beforeEach(() => {
     receiver = ReceiverHandshakeFactory.build(connection)
   })
-  describe('receive method', () => {
+  describe('initiateHandshake', () => {
     it('calls _handshake', () => {
       let handshakeSpy = jest.spyOn(receiver, '_handshake')
-      receiver.receive()
+      receiver.initiateHandshake()
       expect(handshakeSpy).toHaveBeenCalled()
     })
   })

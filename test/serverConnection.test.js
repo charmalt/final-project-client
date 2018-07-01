@@ -13,10 +13,17 @@ describe('SMTPConnection', () => {
     setNoDelay: jest.fn(),
     on: jest.fn()
   }
+  const handshakeConnection = { init: jest.fn() }
+  let handshakeConnectionSpy = jest.spyOn(handshakeConnection, 'init')
+  const mockHandshake = { checkResponse: jest.fn() }
+  const mockHandshakeFactory = { build: jest.fn((connection) => {
+    handshakeConnection.init(connection)
+    return mockHandshake
+  }) }
   let connectionSpy
 
   beforeEach(() => {
-    connection = ServerConnectionFactory.build(serverPort, serverHost)
+    connection = ServerConnectionFactory.build(serverPort, serverHost, mockHandshakeFactory)
     connectionSpy = jest.spyOn(connectionMock, 'connect')
     socketMock.mockImplementation(() => {
       return connectionMock
@@ -26,9 +33,7 @@ describe('SMTPConnection', () => {
 
   describe('connect', () => {
     it('creates a connection on a defined port and host', () => {
-      expect(connectionSpy).toHaveBeenCalledWith(connectionObject, () => {
-        console.log('Connected to server')
-      })
+      expect(connectionSpy).toHaveBeenCalledWith(connectionObject, expect.any(Function))
     })
 
     it('should set encoding of connection to utf-8', () => {
@@ -47,16 +52,15 @@ describe('SMTPConnection', () => {
     })
   })
 
-  // describe('parseResponse', () => {
-  //   it('should call Sender#checkResponse and pass data', () => {
-  //     connection.send()
-  //     //mailClient.sender = senderMock
-  //     let spyOnSender = jest.spyOn(mailClient.sender, 'checkResponse')
-  //     let data = 5
-  //     mailClient._parseResponse(data)
-  //     expect(spyOnSender).toHaveBeenCalledWith('5')
-  //   })
+  describe('parseResponse', () => {
+    const data = 'DATA'
 
-  //
-  // })
+    beforeEach(() => {
+      connection.parseResponse(data)
+    })
+
+    it('creates a new handshake', () => {
+      expect(handshakeConnectionSpy).toHaveBeenCalledWith(connectionMock)
+    })
+  })
 })

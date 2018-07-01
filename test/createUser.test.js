@@ -42,12 +42,12 @@ describe('CreateUser', () => {
   })
 
   describe('create', () => {
-    it('should send query to the database', function () {
+    it('should send query to the database', () => {
       let clientDBSPy = jest.spyOn(mockDBConnection.client, 'query')
       createUser.name = name
       createUser.password = fakeHash
       createUser.create()
-      expect(clientDBSPy).toHaveBeenCalledWith(`INSERT INTO users (name, password) VALUES ('${name}', '${fakeHash}');`)
+      expect(clientDBSPy).toHaveBeenCalledWith(`INSERT INTO users (name, password) VALUES ('${name}', '${fakeHash}');`, expect.any(Function))
     })
   })
 })

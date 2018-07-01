@@ -7,10 +7,10 @@ import App from '../src/App'
 Enzyme.configure({adapter: new Adapter()})
 
 class MockHeader extends React.Component {
-  render() {
-    return(
+  render () {
+    return (
       <div>Header</div>
-    );
+    )
   }
 }
 
@@ -20,7 +20,5 @@ describe('<App/>', () => {
   it('It renders a header', () => {
     const app = shallow(<App />);
     expect(app.find(MockHeader).length).toEqual(1);
-  });
-
-
+  })
 })

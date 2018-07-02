@@ -20,6 +20,7 @@ describe('MailClient', () => {
     connectionSpy = jest.spyOn(mockConnection, 'connectAndHandshake')
     mailClient = new MailClient(smtpPort, smtpHost, popPort, popHost,
       ServerConnectionFactoryMock, SenderHandshakeFactoryMock, ReceiverHandshakeFactoryMock)
+    connectionSpy.mockClear()
   })
 
   it('creates a new serverConnection and supplies the SenderHandshakeFactory, port and host', () => {
@@ -38,6 +39,9 @@ describe('MailClient', () => {
   })
 
   describe('receive', () => {
-
+    it('initiates the receive handshake', () => {
+      mailClient.receive()
+      expect(connectionSpy).toHaveBeenCalledWith()
+    })
   })
 })

@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "test": "jest --coverage",
-    "lint": "eslint src/js"
+    "lint": "eslint src/js",
+    "start": "node ./app"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "url": "https://github.com/charmalt/final-project-client/issues"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
@@ -40,5 +42,11 @@
     "eslint-plugin-standard": "^3.1.0",
     "jest": "^23.2.0",
     "standard": "^11.0.1"
+  },
+
+  "jest": {
+    "testPathIgnorePatterns":[
+      "<rootDir>/clientFrontEnd"
+    ]
   }
 }

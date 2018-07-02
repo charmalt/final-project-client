@@ -19,7 +19,7 @@ describe('SMTPConnection', () => {
   const senderHandshakeConnection = { init: jest.fn() }
   let handshakeConnectionSpy = jest.spyOn(handshakeConnection, 'init')
   let senderHandshakeConnectionSpy = jest.spyOn(senderHandshakeConnection, 'init')
-  const mockHandshake = { checkResponse: jest.fn() }
+  const mockHandshake = { checkResponse: jest.fn(), initiateHandshake: jest.fn() }
   const mockHandshakeFactory = { build: jest.fn((connection, message) => {
     handshakeConnection.init(connection, message)
     return mockHandshake
@@ -68,6 +68,11 @@ describe('SMTPConnection', () => {
     it('creates a new handshake with two arguments for sender', () => {
       senderConnection.connect(message)
       expect(senderHandshakeConnectionSpy).toHaveBeenCalledWith(connectionMock, message)
+    })
+
+    it('initiates the handshake', () => {
+      let handshakeSpy = jest.spyOn(mockHandshake, 'initiateHandshake')
+      expect(handshakeSpy).toHaveBeenCalled()
     })
   })
 

@@ -2,6 +2,15 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 3001
+const MailClient = require('./lib/mailClient')
+
+let smtpPort = 1337
+let smtpHost = '127.0.0.1'
+let popPort = 5001
+let popHost = '127.0.0.1'
+
+let mailClient = new MailClient(smtpPort, smtpHost, popPort, popHost)
+mailClient.receive()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -9,26 +18,15 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.get('/api/emails', (req, res) => {
-  res.json([{
-    id: 1,
-    mailto: 'wendy@darling.com',
-    mailfrom: 'peter@pan.com',
-    mailbody: 'Join me and Micheal in Neverland'
-  }, {
-    id: 2,
-    mailto: 'igor@igor.com',
-    mailfrom: 'pino@chio.com',
-    mailbody: 'Am I a real boy?'
-  }, {
-    id: 3,
-    mailto: 'beauty@ilikebooks.com',
-    mailfrom: 'beast@findmesomebodytolove.com',
-    mailbody: 'Join me for dinner tonight?'
-  }])
+  mailClient.receive()
+  console.log('MESSAGE.INBOX:\n' + mailClient.inbox[mailClient.inbox.length - 1] + '\n_____________')
+  let messagesParsed = JSON.parse(mailClient.inbox[mailClient.inbox.length - 1])
+  console.log('MESSAGEPARSED:\n' + JSON.stringify(messagesParsed) + '\n_____________')
+  res.json(messagesParsed)
 })
 
 app.post('/api/messages', (req, res) => {
-  console.log(req.body)
+  mailClient.send(req.body)
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

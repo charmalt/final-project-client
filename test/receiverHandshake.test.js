@@ -1,26 +1,19 @@
 /* global it, describe, test, expect */
 
-const Receiver = require('../lib/receiver')
+const ReceiverHandshakeFactory = require('../lib/receiverHandshake').ReceiverHandshakeFactory
 jest.mock('net')
 
 describe('Receiver', () => {
   let Socket = require('net').Socket
-  let messageJSON = {
-    "messageObject": {
-      "mailFrom": "john@john.com",
-      "rcptTo": "igor@john.com",
-      "messageBody": "Hi, Igor\n"
-    }
-  }
   let connection = new Socket()
   let receiver
   beforeEach(() => {
-    receiver = new Receiver(connection)
+    receiver = ReceiverHandshakeFactory.build(connection)
   })
-  describe('receive method', () => {
+  describe('initiateHandshake', () => {
     it('calls _handshake', () => {
       let handshakeSpy = jest.spyOn(receiver, '_handshake')
-      receiver.receive()
+      receiver.initiateHandshake()
       expect(handshakeSpy).toHaveBeenCalled()
     })
   })
@@ -143,5 +136,4 @@ describe('Receiver', () => {
       expect(handshakeSpy).toHaveBeenCalled()
     })
   })
-
 })

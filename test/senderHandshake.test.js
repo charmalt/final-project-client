@@ -1,6 +1,6 @@
 /* global it, describe, test, expect */
 
-const Sender = require('../lib/sender')
+const SenderHandshakeFactory = require('../lib/senderHandshake').SenderHandshakeFactory
 jest.mock('net')
 
 describe('Sender', () => {
@@ -13,13 +13,13 @@ describe('Sender', () => {
   let connection = new Socket()
   let sender
   beforeEach(() => {
-    sender = new Sender(message, connection)
+    sender = SenderHandshakeFactory.build(connection, message)
   })
 
-  describe('send', () => {
+  describe('initiateHandshake', () => {
     it('should call handshake', () => {
       let handshakeSpy = jest.spyOn(sender, '_handshake')
-      sender.send()
+      sender.initiateHandshake()
       expect(handshakeSpy).toHaveBeenCalled()
     })
   })

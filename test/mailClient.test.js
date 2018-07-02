@@ -41,7 +41,7 @@ describe('MailClient', () => {
   describe('receive', () => {
     it('initiates the receive handshake', () => {
       mailClient.receive()
-      expect(connectionSpy).toHaveBeenCalledWith()
+      expect(connectionSpy).toHaveBeenCalledWith(mailClient.inbox)
     })
   })
 })

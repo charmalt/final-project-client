@@ -7,8 +7,9 @@ describe('Receiver', () => {
   let Socket = require('net').Socket
   let connection = new Socket()
   let receiver
+  let inbox = []
   beforeEach(() => {
-    receiver = ReceiverHandshakeFactory.build(connection)
+    receiver = ReceiverHandshakeFactory.build(connection, inbox)
   })
   describe('initiateHandshake', () => {
     it('calls _handshake', () => {
@@ -83,7 +84,7 @@ describe('Receiver', () => {
       let response = 5
       receiver._rcptMode = true
       receiver.checkResponse(response)
-      expect(receiver.messages).toContain(response.toString())
+      expect(inbox).toContain(response.toString())
     })
 
     it('should change _rcptMode to false once the message has been received', () => {

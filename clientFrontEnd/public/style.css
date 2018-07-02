@@ -31,7 +31,10 @@ height: 600px;}
   float:left;
 }
 
-
+.Email {
+  height: 70px;
+  background-color: #FFFFEA
+}
 
 /* #FFFFEA
 #FFED66

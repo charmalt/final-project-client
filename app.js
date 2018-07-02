@@ -13,7 +13,7 @@ app.get('/api/emails', (req, res) => {
     id: 2,
     mailto: 'igor@igor.com',
     mailfrom: 'pino@chio.com',
-    mailbody: 'I\'m a real boy'
+    mailbody: 'Am I a real boy?'
   }, {
     id: 3,
     mailto: 'beauty@ilikebooks.com',

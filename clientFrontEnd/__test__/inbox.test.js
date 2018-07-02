@@ -1,3 +1,4 @@
+/* global describe it expect beforeEach  */
 import React from 'react'
 import Enzyme, { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
@@ -23,7 +24,7 @@ describe('<Inbox />', () => {
     inbox.setState({emails: [email, email, email]})
   })
 
-  it('should render email component three times', () => {
+  it('Renders email component three times', () => {
     expect(inbox.find(MockEmail).length).toEqual(3)
   })
 })

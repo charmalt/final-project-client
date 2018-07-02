@@ -1,6 +1,9 @@
+/* global describe it expect beforeEach  */
+
 import React from 'react'
 import Enzyme, { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+
 import MainArea from '../src/mainArea'
 
 Enzyme.configure({adapter: new Adapter()})
@@ -31,13 +34,13 @@ describe('<MainArea />', () => {
     mainArea = mount(<MainArea />)
   })
 
-  it('renders Compose when props.compose is true', () => {
-    mainArea.setProps({ compose: true });
+  it('Renders Compose when props.compose is true', () => {
+    mainArea.setProps({ compose: true })
     expect(mainArea.find(MockCompose).length).toEqual(1)
   })
 
-  it('renders Inbox when props.compose is false', () => {
-    mainArea.setProps({ compose: false });
+  it('Renders Inbox when props.compose is false', () => {
+    mainArea.setProps({ compose: false })
     expect(mainArea.find(MockInbox).length).toEqual(1)
   })
 })

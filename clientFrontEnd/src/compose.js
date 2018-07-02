@@ -1,3 +1,5 @@
+/* global fetch  */
+
 import React, { Component } from 'react'
 
 class Compose extends Component {
@@ -49,12 +51,12 @@ class Compose extends Component {
   render () {
     return (
       <div className="Compose">
-        <form id="comment-form" onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor="mailfrom">Mail From: </label><input type="text" onChange={this.changeMailFrom} value={this.state.value} name="mailfrom" /><br/>
           <label htmlFor="mailto">Mail To: </label><input type="text" onChange={this.changeMailTo} value={this.state.value} name="mailto" /><br/>
           <label htmlFor="mailbody">Message: </label>
-          <textarea form="body-form" type="text" name="mailbody" onChange={this.changeMailBody} value={this.state.value} placeholder="Send some retro mail!!!"></textarea>
-          <div className="col-md-4 goback">
+          <textarea type="text" name="mailbody" onChange={this.changeMailBody} value={this.state.value} placeholder="Send some retro mail!!!"></textarea>
+          <div>
             <input type="submit" value="Submit" />
           </div>
         </form>

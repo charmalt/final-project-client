@@ -1,6 +1,8 @@
+/* global describe it expect beforeEach  */
 import React from 'react'
-import Enzyme, {shallow, mount} from 'enzyme'
+import Enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+
 import Body from '../src/body'
 
 Enzyme.configure({adapter: new Adapter()})
@@ -17,10 +19,8 @@ Body.__Rewire__('MainArea', MockMainArea)
 
 describe('<Body/>', () => {
   let body
-  let wrapper
   beforeEach(() => {
     body = shallow(<Body />)
-    wrapper = mount(<Body />)
   })
 
   it('It has a inbox button', () => {
@@ -31,7 +31,7 @@ describe('<Body/>', () => {
     expect(body.text()).toContain('COMPOSE')
   })
 
-  it('renders Body component', () => {
+  it('Renders Body component', () => {
     expect(body.find(MockMainArea).length).toEqual(1)
   })
 

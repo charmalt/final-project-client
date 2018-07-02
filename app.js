@@ -1,7 +1,12 @@
 const express = require('express')
-
 const app = express()
+const bodyParser = require('body-parser')
 const port = process.env.PORT || 3001
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
 app.get('/api/emails', (req, res) => {
   res.json([{
@@ -20,6 +25,10 @@ app.get('/api/emails', (req, res) => {
     mailfrom: 'beast@findmesomebodytolove.com',
     mailbody: 'Join me for dinner tonight?'
   }])
+})
+
+app.post('/send', (req, res) => {
+  console.log(req.body)
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

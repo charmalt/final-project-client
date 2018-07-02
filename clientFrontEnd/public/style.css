@@ -26,16 +26,32 @@ height: 600px;}
 
 .mainArea {
   width:85%;
-  background-color: #00CECB;
+  background-color: #FFFFEA;
   height: 100%;
   float:left;
 }
 
-.Email {
-  height: 70px;
-  background-color: #FFFFEA
+.Email1 {
+  height: 80px;
+  background-color: #00CECB;
+  color: #D3D3D3;
+  line-height: 20px;
+
 }
+.Email0 {
+  height: 80px;
+  background-color: #FFA69E;
+  color: #D3D3D3;
+  line-height: 20px;
+}
+
+.Email1 label, .Email0 label{
+  color: black;
+}
+
+
 
 /* #FFFFEA
 #FFED66
-#00CECB */
+#00CECB
+#FFA69E*/

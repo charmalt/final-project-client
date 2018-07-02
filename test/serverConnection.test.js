@@ -3,8 +3,10 @@ jest.mock('net')
 
 describe('SMTPConnection', () => {
   let connection
+  let senderConnection
   const serverPort = 5001
   const serverHost = 'host'
+  const message = 'Message'
   let connectionObject = { port: serverPort, host: serverHost }
   let socketMock = require('net').Socket
   let connectionMock = {
@@ -14,20 +16,28 @@ describe('SMTPConnection', () => {
     on: jest.fn()
   }
   const handshakeConnection = { init: jest.fn() }
+  const senderHandshakeConnection = { init: jest.fn() }
   let handshakeConnectionSpy = jest.spyOn(handshakeConnection, 'init')
+  let senderHandshakeConnectionSpy = jest.spyOn(senderHandshakeConnection, 'init')
   const mockHandshake = { checkResponse: jest.fn() }
-  const mockHandshakeFactory = { build: jest.fn((connection) => {
-    handshakeConnection.init(connection)
+  const mockHandshakeFactory = { build: jest.fn((connection, message) => {
+    handshakeConnection.init(connection, message)
+    return mockHandshake
+  }) }
+  const mockSenderHandshakeFactory = { build: jest.fn((connection, message) => {
+    senderHandshakeConnection.init(connection, message)
     return mockHandshake
   }) }
   let connectionSpy
 
   beforeEach(() => {
     connection = ServerConnectionFactory.build(serverPort, serverHost, mockHandshakeFactory)
+    senderConnection = ServerConnectionFactory.build(serverPort, serverHost, mockSenderHandshakeFactory)
     connectionSpy = jest.spyOn(connectionMock, 'connect')
     socketMock.mockImplementation(() => {
       return connectionMock
     })
+    handshakeConnectionSpy.mockClear()
     connection.connect()
   })
 
@@ -51,8 +61,13 @@ describe('SMTPConnection', () => {
       expect(connectionSpy).toHaveBeenCalledWith('data', expect.any(Function))
     })
 
-    it('creates a new handshake', () => {
-      expect(handshakeConnectionSpy).toHaveBeenCalledWith(connectionMock)
+    it('creates a new handshake with one argument for receiver', () => {
+      expect(handshakeConnectionSpy).toHaveBeenCalledWith(connectionMock, undefined)
+    })
+
+    it('creates a new handshake with two arguments for sender', () => {
+      senderConnection.connect(message)
+      expect(senderHandshakeConnectionSpy).toHaveBeenCalledWith(connectionMock, message)
     })
   })
 

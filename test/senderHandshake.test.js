@@ -13,7 +13,7 @@ describe('Sender', () => {
   let connection = new Socket()
   let sender
   beforeEach(() => {
-    sender = SenderHandshakeFactory.build(message, connection)
+    sender = SenderHandshakeFactory.build(connection, message)
   })
 
   describe('initiateHandshake', () => {

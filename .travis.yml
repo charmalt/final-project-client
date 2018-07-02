@@ -1,6 +1,5 @@
 language: node_js
 before_install:
   - npm install
-  - npm test
   - npm start
-before_script: cd ./clientFrontEnd && npm install && npm test
+before_script: cd ./clientFrontEnd && npm install && npm start

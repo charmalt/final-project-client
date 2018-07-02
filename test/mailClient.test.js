@@ -10,11 +10,14 @@ describe('MailClient', () => {
   const message = 'Message'
   const ReceiverHandshakeFactoryMock = 'ReceiverHandshakeFactoryMock'
   const SenderHandshakeFactoryMock = 'SenderHandshakeFactoryMock'
-  const ServerConnectionFactoryMock = { build: jest.fn() }
+  let mockConnection = { connectAndHandshake: jest.fn() }
+  const ServerConnectionFactoryMock = { build: jest.fn(() => { return mockConnection }) }
   let serverConnectionFactorySpy
+  let connectionSpy
 
   beforeEach(() => {
     serverConnectionFactorySpy = jest.spyOn(ServerConnectionFactoryMock, 'build')
+    connectionSpy = jest.spyOn(mockConnection, 'connectAndHandshake')
     mailClient = new MailClient(smtpPort, smtpHost, popPort, popHost,
       ServerConnectionFactoryMock, SenderHandshakeFactoryMock, ReceiverHandshakeFactoryMock)
   })
@@ -28,7 +31,10 @@ describe('MailClient', () => {
   })
 
   describe('send', () => {
-
+    it('sends the message', () => {
+      mailClient.send(message)
+      expect(connectionSpy).toHaveBeenCalledWith(message)
+    })
   })
 
   describe('receive', () => {

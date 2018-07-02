@@ -43,9 +43,8 @@
     "jest": "^23.2.0",
     "standard": "^11.0.1"
   },
-
   "jest": {
-    "testPathIgnorePatterns":[
+    "testPathIgnorePatterns": [
       "<rootDir>/clientFrontEnd"
     ]
   }

@@ -34,14 +34,14 @@ describe('MailClient', () => {
   describe('send', () => {
     it('sends the message', () => {
       mailClient.send(message)
-      expect(connectionSpy).toHaveBeenCalledWith(message)
+      expect(connectionSpy).toHaveBeenCalledWith({ Message: message })
     })
   })
 
   describe('receive', () => {
     it('initiates the receive handshake', () => {
       mailClient.receive()
-      expect(connectionSpy).toHaveBeenCalledWith()
+      expect(connectionSpy).toHaveBeenCalledWith(mailClient.inbox)
     })
   })
 })

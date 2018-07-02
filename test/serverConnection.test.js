@@ -38,10 +38,10 @@ describe('SMTPConnection', () => {
       return connectionMock
     })
     handshakeConnectionSpy.mockClear()
-    connection.connect()
+    connection.connectAndHandshake()
   })
 
-  describe('connect', () => {
+  describe('connectAndHandshake', () => {
     it('creates a connection on a defined port and host', () => {
       expect(connectionSpy).toHaveBeenCalledWith(connectionObject, expect.any(Function))
     })
@@ -66,7 +66,7 @@ describe('SMTPConnection', () => {
     })
 
     it('creates a new handshake with two arguments for sender', () => {
-      senderConnection.connect(message)
+      senderConnection.connectAndHandshake(message)
       expect(senderHandshakeConnectionSpy).toHaveBeenCalledWith(connectionMock, message)
     })
 

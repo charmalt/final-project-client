@@ -27,7 +27,7 @@ app.get('/api/emails', (req, res) => {
   }])
 })
 
-app.post('/send', (req, res) => {
+app.post('/api/messages', (req, res) => {
   console.log(req.body)
 })
 

@@ -50,6 +50,10 @@ describe('SMTPConnection', () => {
       let connectionSpy = jest.spyOn(connectionMock, 'on')
       expect(connectionSpy).toHaveBeenCalledWith('data', expect.any(Function))
     })
+
+    it('creates a new handshake', () => {
+      expect(handshakeConnectionSpy).toHaveBeenCalledWith(connectionMock)
+    })
   })
 
   describe('parseResponse', () => {
@@ -57,10 +61,6 @@ describe('SMTPConnection', () => {
 
     beforeEach(() => {
       connection.parseResponse(data)
-    })
-
-    it('creates a new handshake', () => {
-      expect(handshakeConnectionSpy).toHaveBeenCalledWith(connectionMock)
     })
 
     it('checks the response', () => {

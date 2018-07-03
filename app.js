@@ -2,15 +2,8 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 3001
-const MailClient = require('./lib/mailClient')
 
-let smtpPort = 1337
-let smtpHost = '127.0.0.1'
-let popPort = 5001
-let popHost = '127.0.0.1'
-
-let mailClient = new MailClient(smtpPort, smtpHost, popPort, popHost)
-mailClient.receive()
+const mailClient = require('./scripts/clientSetup')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({

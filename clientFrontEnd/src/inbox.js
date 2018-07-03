@@ -9,9 +9,14 @@ class Inbox extends Component {
       emails: []
     }
     this.alternateColour = this.alternateColour.bind(this)
+    this.pullEmails = this.pullEmails.bind(this)
   }
 
   componentDidMount () {
+    this.pullEmails()
+  }
+
+  pullEmails () {
     fetch('/api/emails', {
       method: 'GET',
       datatype: 'json',
@@ -24,7 +29,6 @@ class Inbox extends Component {
       .then(emails => { console.log('THIS IS EMAILS.JSON:\n' + JSON.stringify(emails) + '\n___________'); return emails })
       .then(emails => this.setState({ emails }))
   }
-
   alternateColour () {
     this.i === 0 ? this.i = 1 : this.i = 0
     return this.i

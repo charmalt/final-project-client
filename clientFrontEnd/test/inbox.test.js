@@ -17,14 +17,23 @@ Inbox.__Rewire__('Email', MockEmail)
 
 describe('<Inbox />', () => {
   let inbox
-
+  let emailOne
+  let emailTwo
+  let emailThree
+  
   beforeEach(() => {
-    const email = 'test'
+    emailOne = {id: 2}
+    emailTwo = {id: 3}
+    emailThree = {id: 5}
     inbox = mount(<Inbox />)
-    inbox.setState({emails: [email, email, email]})
+    inbox.setState({emails: [emailOne, emailTwo, emailThree]})
   })
 
   it('Renders email component three times', () => {
     expect(inbox.find(MockEmail).length).toEqual(3)
+  })
+
+  it('sorts emails by id', () => {
+    expect(inbox.instance().sortEmails(inbox.state.emails)).toEqual([emailThree, emailTwo, emailOne])
   })
 })

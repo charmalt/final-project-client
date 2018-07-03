@@ -4,16 +4,17 @@ const SenderHandshakeFactory = require('../lib/senderHandshake').SenderHandshake
 jest.mock('net')
 
 describe('Sender', () => {
-  let Socket = require('net').Socket
-  let message = {
+  const Socket = require('net').Socket
+  const message = {
     MAIL_FROM: 'john@john.com',
     RCPT_TO: 'igor@john.com',
     DATA: 'From: John\nTo: Igor\nSubject: SMTP Feature Testing\n\nHi, Igor.\nThis is a test message.\nAnd this is line 3.\n\nYours,\nJohn'
   }
-  let connection = new Socket()
+  const userName = 'user@user.com'
+  const connection = new Socket()
   let sender
   beforeEach(() => {
-    sender = SenderHandshakeFactory.build(connection, message)
+    sender = SenderHandshakeFactory.build(connection, message, userName)
   })
 
   describe('initiateHandshake', () => {

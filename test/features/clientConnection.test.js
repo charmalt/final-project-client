@@ -1,7 +1,7 @@
 const MailClient = require('../../lib/mailClient')
 const net = require('net')
 
-describe('Feature Test', () => {
+describe('CLient connects to server', () => {
   let client
   let server
 

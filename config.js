@@ -13,8 +13,8 @@ module.exports = {
   },
   'production': {
     smtpPort: 1337,
-    smtpHost: '127.0.0.1',
+    smtpHost: '192.168.48.239',
     popPort: 5001,
-    popHost: '127.0.0.1'
+    popHost: '192.168.48.55'
   }
 }

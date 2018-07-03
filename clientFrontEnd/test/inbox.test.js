@@ -20,7 +20,7 @@ describe('<Inbox />', () => {
   let emailOne
   let emailTwo
   let emailThree
-  
+
   beforeEach(() => {
     emailOne = {id: 2}
     emailTwo = {id: 5}
@@ -34,6 +34,6 @@ describe('<Inbox />', () => {
   })
 
   it('sorts emails by id', () => {
-    expect(inbox.instance().sortEmails(inbox.state('emails')).toEqual([emailTwo, emailThree, emailOne])
+    expect(inbox.instance().sortEmails(inbox.state('emails'))).toEqual([emailTwo, emailThree, emailOne])
   })
 })

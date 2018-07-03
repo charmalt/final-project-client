@@ -30,9 +30,23 @@ class Inbox extends Component {
     return this.i
   }
 
+  sortEmails (emails) {
+    return emails.sort(this._compare)
+  }
+
+  _compare (a, b) {
+    if (a.id > b.id) {
+      return -1
+    }
+    if (a.id < b.id) {
+      return 1
+    }
+    return 0
+  }
+
   render () {
-    var emails = this.state.emails.map(email =>
-      <Email key={email.id} cname={this.alternateColour()} email={email} />
+    var emails = this.sortEmails(this.state.emails).map(email =>
+      <Email key={email.id} cname={this.alternateColour()} email={email}/>
     )
     return (
       <div className="Inbox">

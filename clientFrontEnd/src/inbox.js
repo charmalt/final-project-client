@@ -12,8 +12,16 @@ class Inbox extends Component {
   }
 
   componentDidMount () {
-    fetch('/api/emails')
+    fetch('/api/emails', {
+      method: 'GET',
+      datatype: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
       .then(emails => emails.json())
+      .then(emails => { console.log('THIS IS EMAILS.JSON:\n' + JSON.stringify(emails) + '\n___________'); return emails })
       .then(emails => this.setState({ emails }))
   }
 
@@ -24,7 +32,7 @@ class Inbox extends Component {
 
   render () {
     var emails = this.state.emails.map(email =>
-      <Email key={email.id} cname={this.alternateColour()} email={email}/>
+      <Email key={email.id} cname={this.alternateColour()} email={email} />
     )
     return (
       <div className="Inbox">

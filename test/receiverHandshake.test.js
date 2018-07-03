@@ -9,10 +9,12 @@ describe('Receiver', () => {
   let receiver
   let inbox = { addMessages: jest.fn() }
   let inboxSpy
+  const userName = 'user@user.com'
 
   beforeEach(() => {
-    receiver = ReceiverHandshakeFactory.build(connection, inbox)
+    receiver = ReceiverHandshakeFactory.build(connection, inbox, userName)
   })
+
   describe('initiateHandshake', () => {
     it('calls _handshake', () => {
       let handshakeSpy = jest.spyOn(receiver, '_handshake')
@@ -25,7 +27,7 @@ describe('Receiver', () => {
     it('should call the first function of sender._functionOrder', () => {
       let connectionSpy = jest.spyOn(connection, 'write')
       receiver._handshake()
-      expect(connectionSpy).toHaveBeenCalledWith('Hello')
+      expect(connectionSpy).toHaveBeenCalledWith('HELLO')
     })
     it('should call connection.end if sender._functionOrder is empty', () => {
       let connectionSpy = jest.spyOn(connection, 'end')
@@ -46,10 +48,22 @@ describe('Receiver', () => {
 
   describe('handshake methods', () => {
     let connectionSpy = jest.spyOn(connection, 'write')
+
+    beforeEach(() => {
+      connectionSpy.mockClear()
+    })
+
     describe('_helloMethod', () => {
       it('should write "Hello" to the connection', () => {
         receiver._helloMethod()
-        expect(connectionSpy).toHaveBeenCalledWith('Hello')
+        expect(connectionSpy).toHaveBeenCalledWith('HELLO')
+      })
+    })
+
+    describe('userMethod', () => {
+      it('should write USER and an email address to the connection', () => {
+        receiver._userMethod()
+        expect(connectionSpy).toHaveBeenCalledWith(`USER ${userName}`)
       })
     })
 

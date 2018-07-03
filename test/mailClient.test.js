@@ -3,11 +3,12 @@ const MailClient = require('../lib/MailClient')
 
 describe('MailClient', () => {
   let mailClient
-  let smtpPort = 1337
-  let smtpHost = '127.0.0.1'
-  let popPort = 5001
-  let popHost = '198.168.0.5'
+  const smtpPort = 1337
+  const smtpHost = '127.0.0.1'
+  const popPort = 5001
+  const popHost = '198.168.0.5'
   const message = 'Message'
+  const userName = 'user@user.com'
   const ReceiverHandshakeFactoryMock = 'ReceiverHandshakeFactoryMock'
   const SenderHandshakeFactoryMock = 'SenderHandshakeFactoryMock'
   let mockConnection = { connectAndHandshake: jest.fn() }
@@ -18,7 +19,7 @@ describe('MailClient', () => {
   beforeEach(() => {
     serverConnectionFactorySpy = jest.spyOn(ServerConnectionFactoryMock, 'build')
     connectionSpy = jest.spyOn(mockConnection, 'connectAndHandshake')
-    mailClient = new MailClient(smtpPort, smtpHost, popPort, popHost,
+    mailClient = new MailClient(smtpPort, smtpHost, popPort, popHost, userName,
       ServerConnectionFactoryMock, SenderHandshakeFactoryMock, ReceiverHandshakeFactoryMock)
     connectionSpy.mockClear()
   })

@@ -9,11 +9,11 @@ Enzyme.configure({adapter: new Adapter()})
 
 describe('<Login />', () => {
   let login
-  let mockFunction
+  let mockSetUser
 
   beforeEach(() => {
-    mockFunction = jest.fn()
-    login = shallow(<Login setUser={mockFunction} />)
+    mockSetUser = jest.fn()
+    login = shallow(<Login setUser={mockSetUser} />)
   })
 
   it('changes the sessionUser state', () => {
@@ -21,5 +21,19 @@ describe('<Login />', () => {
     let mockSessionUser = { target: { value: name } }
     login.instance().changeSessionUser(mockSessionUser)
     expect(login.state('sessionUser')).toEqual(name)
+  })
+
+  describe('onSubmit', () => {
+    let mockEvent = { preventDefault: jest.fn() }
+
+    beforeEach(() => {
+      login.instance().onSubmit(mockEvent)
+    })
+
+    it('calls preventDefault', () => {
+      let spyOnPreventDefault = jest.spyOn(mockEvent, 'preventDefault')
+
+      expect(spyOnPreventDefault).toHaveBeenCalled()
+    })
   })
 })

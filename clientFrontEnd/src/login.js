@@ -6,6 +6,8 @@ class Login extends Component {
     this.state = {
       sessionUser: null
     }
+    this.changeSessionUser = this.changeSessionUser.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   changeSessionUser (event) {

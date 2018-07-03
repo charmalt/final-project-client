@@ -71,7 +71,7 @@ describe('Sender', () => {
     describe('_mailFromMethod', () => {
       it("should write 'MAIL FROM: ' plus the given email address", () => {
         sender._mailFromMethod()
-        expect(connectionSpy).toHaveBeenCalledWith(`MAIL FROM: ${sender.message.MAIL_FROM}`)
+        expect(connectionSpy).toHaveBeenCalledWith(`MAIL FROM: ${userName}`)
       })
     })
 

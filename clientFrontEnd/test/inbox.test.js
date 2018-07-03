@@ -23,8 +23,8 @@ describe('<Inbox />', () => {
   
   beforeEach(() => {
     emailOne = {id: 2}
-    emailTwo = {id: 3}
-    emailThree = {id: 5}
+    emailTwo = {id: 5}
+    emailThree = {id: 4}
     inbox = mount(<Inbox />)
     inbox.setState({emails: [emailOne, emailTwo, emailThree]})
   })
@@ -34,6 +34,6 @@ describe('<Inbox />', () => {
   })
 
   it('sorts emails by id', () => {
-    expect(inbox.instance().sortEmails(inbox.state.emails)).toEqual([emailThree, emailTwo, emailOne])
+    expect(inbox.instance().sortEmails(inbox.state('emails)).toEqual([emailTwo, emailThree, emailOne])
   })
 })

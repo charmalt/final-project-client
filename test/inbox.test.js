@@ -28,4 +28,11 @@ describe('Inbox', () => {
       expect(inbox.messages).toEqual(moreMessages)
     })
   })
+
+  describe('getMessages', () => {
+    it('returns the emails', () => {
+      inbox.addMessages(messagesString)
+      expect(inbox.getMessages()).toEqual(messages)
+    })
+  })
 })

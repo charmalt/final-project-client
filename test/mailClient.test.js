@@ -25,11 +25,11 @@ describe('MailClient', () => {
   })
 
   it('creates a new serverConnection and supplies the SenderHandshakeFactory, port and host', () => {
-    expect(serverConnectionFactorySpy).toHaveBeenCalledWith(smtpPort, smtpHost, SenderHandshakeFactoryMock)
+    expect(serverConnectionFactorySpy).toHaveBeenCalledWith(smtpPort, smtpHost, userName, SenderHandshakeFactoryMock)
   })
 
   it('creates a new serverConnection and supplies the SenderHandshakeFactory, port and host', () => {
-    expect(serverConnectionFactorySpy).toHaveBeenCalledWith(popPort, popHost, ReceiverHandshakeFactoryMock)
+    expect(serverConnectionFactorySpy).toHaveBeenCalledWith(popPort, popHost, userName, ReceiverHandshakeFactoryMock)
   })
 
   describe('send', () => {

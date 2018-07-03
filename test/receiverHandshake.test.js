@@ -7,7 +7,9 @@ describe('Receiver', () => {
   let Socket = require('net').Socket
   let connection = new Socket()
   let receiver
-  let inbox = []
+  let inbox = { addMessages: jest.fn() }
+  let inboxSpy
+
   beforeEach(() => {
     receiver = ReceiverHandshakeFactory.build(connection, inbox)
   })
@@ -82,9 +84,10 @@ describe('Receiver', () => {
 
     it('should push response into message array in rcpt mode', () => {
       let response = 5
+      inboxSpy = jest.spyOn(inbox, 'addMessages')
       receiver._rcptMode = true
       receiver.checkResponse(response)
-      expect(inbox).toContain(response.toString())
+      expect(inboxSpy).toHaveBeenCalledWith(response.toString())
     })
 
     it('should change _rcptMode to false once the message has been received', () => {

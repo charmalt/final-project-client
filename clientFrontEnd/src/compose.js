@@ -36,7 +36,7 @@ class Compose extends Component {
   }
 
   sendMail (data) {
-    fetch('/api/messages', {
+    fetch('/api/emails', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {'Content-Type': 'application/json'}

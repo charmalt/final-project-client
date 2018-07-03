@@ -12,8 +12,22 @@ class App extends Component {
     this.setUser = this.setUser.bind(this)
   }
 
-  setUser (name) {
-    this.setState({sessionUser: name})
+  async setUser (name) {
+    await this.setState({sessionUser: name})
+    this.sendUser()
+  }
+
+  sendUser () {
+    fetch('/login', {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then((response) => {
+        return response.json()
+      }).then((body) => {
+        console.log(body)
+      })
   }
 
   render () {

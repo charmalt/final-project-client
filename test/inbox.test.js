@@ -8,7 +8,7 @@ describe('Inbox', () => {
     {"id": 2, "mailfrom": "John", "mailto": "Igor", "mailbody": "BYE"}]
   const moreMessagesString = '[{"id": 2, "mailfrom": "John", "mailto": "Igor", "mailbody": "BYE"},' +
     '{"id": 3, "mailfrom": "Tom", "mailto": "Will", "mailbody": "Cheerio "}]'
-  const moreMessages = [{"id": 1, "mailfrom": "George", "mailto": "Charlene", "mailbody": "HI"},
+  const combinedMessages = [{"id": 1, "mailfrom": "George", "mailto": "Charlene", "mailbody": "HI"},
     {"id": 2, "mailfrom": "John", "mailto": "Igor", "mailbody": "BYE"},
     {"id": 3, "mailfrom": "Tom", "mailto": "Will", "mailbody": "Cheerio "}]
 
@@ -25,7 +25,7 @@ describe('Inbox', () => {
     it('does not duplicate messages', () => {
       inbox.addMessages(messagesString)
       inbox.addMessages(moreMessagesString)
-      expect(inbox.messages).toEqual(moreMessages)
+      expect(inbox.messages).toEqual(combinedMessages)
     })
   })
 

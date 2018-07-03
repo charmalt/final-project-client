@@ -19,10 +19,7 @@ app.use(bodyParser.urlencoded({
 
 app.get('/api/emails', (req, res) => {
   mailClient.receive()
-  console.log('MESSAGE.INBOX:\n' + mailClient.inbox[mailClient.inbox.length - 1] + '\n_____________')
-  let messagesParsed = JSON.parse(mailClient.inbox[mailClient.inbox.length - 1])
-  console.log('MESSAGEPARSED:\n' + JSON.stringify(messagesParsed) + '\n_____________')
-  res.json(messagesParsed)
+  res.json(mailClient.inbox.getMessages())
 })
 
 app.post('/api/messages', (req, res) => {

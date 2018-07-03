@@ -15,8 +15,12 @@ app.get('/api/emails', (req, res) => {
   res.json(mailClient.inbox.getMessages())
 })
 
-app.post('/api/messages', (req, res) => {
+app.post('/api/emails', (req, res) => {
   mailClient.send(req.body)
+})
+
+app.post('/login', (req, res) => {
+  console.log(req.body)
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

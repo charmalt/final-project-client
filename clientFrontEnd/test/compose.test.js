@@ -47,7 +47,7 @@ describe('<Compose />', () => {
   describe('#sendMail', () => {
     it('Calls fetch with a argument send and post', () => {
       compose.instance().sendMail({test: 'test'})
-      expect(fetch).toHaveBeenCalledWith('/api/messages', {'body': '{}', 'headers': {'Content-Type': 'application/json'}, 'method': 'POST'})
+      expect(fetch).toHaveBeenCalledWith('/api/emails', {'body': '{}', 'headers': {'Content-Type': 'application/json'}, 'method': 'POST'})
     })
   })
 })

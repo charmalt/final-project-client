@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Email extends Component {
   render () {
     return (
-      <div className={'email', 'style-' + this.props.cname}>
+      <div className={'email style-' + this.props.cname}>
         <label htmlFor="mailto">Mail To: </label>{this.props.email.mailto}<br/>
         <label htmlFor="mailfrom">Mail From: </label>{this.props.email.mailfrom}<br/>
         <label htmlFor="mailbody">Message: </label>{this.props.email.mailbody}

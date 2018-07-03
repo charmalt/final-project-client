@@ -26,7 +26,7 @@ class MockBody extends React.Component {
 class MockLogin extends React.Component {
   render () {
     return (
-      <div>Login</div>
+      <div>{this.props.setUser}</div>
     )
   }
 }
@@ -56,4 +56,10 @@ describe('<App/>', () => {
     })
   })
 
+  describe('#setUser', () => {
+    it('sets sessionUser to the argument', () => {
+      app.instance().setUser('fred')
+      expect(app.state('sessionUser')).toEqual('fred')
+    })
+  })
 })

@@ -2,13 +2,22 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 3001
+const MailClient = require('./lib/mailClient')
+const env = process.env.NODE_ENV || 'development'
+const Env = require('./config')[env]
 
-const mailClient = require('./scripts/clientSetup')
+let mailClient
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+
+app.post('/login', (req, res) => {
+  let user = req.body.sessionUser
+  mailClient = new MailClient(Env.smtpPort, Env.smtpHost, Env.popPort, Env.popHost, user)
+  mailClient.receive()
+})
 
 app.get('/api/emails', (req, res) => {
   mailClient.receive()
@@ -17,10 +26,6 @@ app.get('/api/emails', (req, res) => {
 
 app.post('/api/emails', (req, res) => {
   mailClient.send(req.body)
-})
-
-app.post('/login', (req, res) => {
-  console.log(req.body)
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

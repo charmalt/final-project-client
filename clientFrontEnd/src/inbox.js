@@ -4,7 +4,6 @@ import Email from './email'
 class Inbox extends Component {
   constructor (props) {
     super(props)
-    this.i = 0
     this.state = {
       emails: []
     }
@@ -14,7 +13,6 @@ class Inbox extends Component {
 
   componentDidMount () {
     this.interval = setInterval(() => this.pullEmails(), 1000)
-    console.log(this.interval)
   }
 
   pullEmails () {
@@ -30,9 +28,8 @@ class Inbox extends Component {
       .then(emails => { console.log('THIS IS EMAILS.JSON:\n' + JSON.stringify(emails) + '\n___________'); return emails })
       .then(emails => this.setState({ emails }))
   }
-  alternateColour () {
-    this.i === 0 ? this.i = 1 : this.i = 0
-    return this.i
+  alternateColour (index) {
+    return (index % 2 === 0) ? 1 : 0
   }
 
   sortEmails (emails) {
@@ -50,8 +47,8 @@ class Inbox extends Component {
   }
 
   render () {
-    var emails = this.sortEmails(this.state.emails).map(email =>
-      <Email key={email.id} cname={this.alternateColour()} email={email}/>
+    var emails = this.sortEmails(this.state.emails).map((email, index) =>
+      <Email key={email.id} cname={this.alternateColour(index)} email={email}/>
     )
     return (
       <div className="Inbox">

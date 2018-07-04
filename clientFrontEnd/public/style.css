@@ -11,18 +11,18 @@ height: 100%}
 }
 
 .main {
-  height: 100%;
+  height: 85%;
   overflow:hidden
 }
 
-html, body {
-    height: 100%;
+html, body, #root {
+  height: 100%;
 }
 
 .sideBar {
   width:15%;
   background-color: #FFED66;
-  height: 100vh;
+  height: 100%;
   float: left;
   overflow: auto;
 }
@@ -32,7 +32,7 @@ html, body {
   background-color: #FFFFEA;
   height: 100%;
   float:left;
-  overflow: auto
+  overflow: auto;
 
 }
 

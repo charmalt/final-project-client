@@ -17,16 +17,13 @@ app.use(bodyParser.urlencoded({
 
 app.post('/login', (req, res) => {
   let user = req.body.sessionUser
-  mailClient = new MailClient(Env.smtpPort, Env.smtpHost, Env.popPort, Env.popHost, user)
 })
 
 app.get('/api/emails', (req, res) => {
-  mailClient.receive()
-  res.json(mailClient.inbox.getMessages())
+  res.json([{"id":69,"mailfrom":"test@test.com","mailto":"test@test.com","mailbody":"hey\n\n"}])
 })
 
 app.post('/api/emails', (req, res) => {
-  mailClient.send(req.body)
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

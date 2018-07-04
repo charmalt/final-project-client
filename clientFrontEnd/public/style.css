@@ -34,7 +34,7 @@ html, body, #root {
 
 .sideBar {
   width:15%;
-  background-color: #FFED66;
+  background-color: #FEFCFD;
   height: 100%;
   float: left;
   overflow: auto;
@@ -46,7 +46,6 @@ html, body, #root {
   height: 100%;
   float:left;
   overflow: auto;
-
 }
 
 .email {
@@ -97,6 +96,8 @@ form input {
 
 .inbox, .compose {
   color: black;
+  margin: 10px;
+  margin-left: 20px;
   border: 2px outset white;
   background: #eee;
   padding: 2px;
@@ -110,7 +111,11 @@ form input {
     border-style: inset;
 }
 
-body{margin: 20px;
+.Compose {
+  text-align: center;
+}
+
+body {margin: 20px;
 
 
 

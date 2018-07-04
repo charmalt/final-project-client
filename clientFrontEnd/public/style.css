@@ -11,14 +11,14 @@ height: 100%}
 }
 
 .title {
-  font-size: 60px;
+  font-size: 3.750em;
   font-family: 'VT323', monospace;
   margin-left: 35%;
   margin-top: -30px;
 }
 
 .logo {
-  font-size: 60px;
+  font-size: 3.750em;
   top: 7px;
   position: relative;
   left: 10px;
@@ -67,7 +67,7 @@ html, body, #root {
 
 .email label{
   color: black;
-  font: 20px "ClarendonRoman", Georgia, Times, serif;
+  font: 1.250em "ClarendonRoman", Georgia, Times, serif;
   padding: 5px;
 }
 
@@ -83,7 +83,7 @@ html, body, #root {
 }
 
 .label {
-   font: 20px "ClarendonRoman", Georgia, Times, serif;
+   font: 1.250em "ClarendonRoman", Georgia, Times, serif;
    color: #525250;
    letter-spacing: 2px;
    text-transform: uppercase;
@@ -99,7 +99,7 @@ form input, textarea {
     color: #4f4f4f;
     background: none;
     outline: none;
-    font: 30px "SeanRegular", Courier New, Courier New, Courier6, monospace;
+    font: 1.875em "SeanRegular", Courier New, Courier New, Courier6, monospace;
     letter-spacing: 1px;
 }
 
@@ -113,7 +113,7 @@ form input, textarea {
   margin: 10px;
   margin-left: 20px;
   padding: 10px;
-  font-size: 20px;
+  font-size: 1.250em;
   border: 2px outset white;
   background: #eee;
   padding: 2px;

@@ -38,6 +38,7 @@ html, body, #root {
   height: 100%;
   float: left;
   overflow: auto;
+  border-radius: 0px 0px 15px 15px;
 }
 
 .mainArea {
@@ -56,16 +57,26 @@ html, body, #root {
 }
 
 .style-1 {
-  background-color: #00CECB;
+  background-color: #F9F9F9;
 }
 
 .style-0 {
-  background-color: #FFA69E;
+  background-color: #8C8C8C;
 }
 
 .email label{
   color: black;
+  font: 20px "ClarendonRoman", Georgia, Times, serif;
+  padding: 5px;
+}
+
+.from {
   font-weight: bold;
+  padding: 10px;
+}
+
+.message {
+  padding-left: 10px;
 }
 
 .label {
@@ -98,6 +109,7 @@ form input {
   color: black;
   margin: 10px;
   margin-left: 20px;
+  padding: 10px;
   border: 2px outset white;
   background: #eee;
   padding: 2px;
@@ -115,7 +127,9 @@ form input {
   text-align: center;
 }
 
-body {margin: 20px;
+body {
+  margin: 20px;
+}
 
 
 

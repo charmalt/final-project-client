@@ -20,7 +20,7 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/api/emails', (req, res) => {
-  res.json([{"id":69,"mailfrom":"test@test.com","mailto":"test@test.com","mailbody":"hey\n\n"}])
+  res.json([{"id":69,"mailfrom":"test@test.com","mailto":"test@test.com","mailbody":"hey\n\n"}, {"id":69,"mailfrom":"test@test.com","mailto":"test@test.com","mailbody":"hey\n\n"}])
 })
 
 app.post('/api/emails', (req, res) => {

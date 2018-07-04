@@ -10,9 +10,13 @@ describe('Receiver', () => {
   let inbox = { addMessages: jest.fn() }
   let inboxSpy
   const userName = 'user@user.com'
+  let endedSpy
+  let mockWritablestate = {ended: jest.fn()}
 
   beforeEach(() => {
     receiver = ReceiverHandshakeFactory.build(connection, inbox, userName)
+    jest.spyOn(connection, '_writableState').mockReturnValue(mockWritablestate)
+    endedSpy = jest.spyOn(mockWritablestate, 'ended').mockReturnValue(true)
   })
 
   describe('initiateHandshake', () => {

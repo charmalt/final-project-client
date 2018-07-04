@@ -7,7 +7,6 @@ class Compose extends Component {
     super(props)
     this.state = {}
     this.changeMailTo = this.changeMailTo.bind(this)
-    this.changeMailFrom = this.changeMailFrom.bind(this)
     this.changeMailBody = this.changeMailBody.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.sendMail = this.sendMail.bind(this)
@@ -17,10 +16,6 @@ class Compose extends Component {
     this.setState({ mailto: event.target.value })
   }
 
-  changeMailFrom (event) {
-    this.setState({ mailfrom: event.target.value })
-  }
-
   changeMailBody (event) {
     this.setState({ mailbody: event.target.value })
   }
@@ -28,7 +23,6 @@ class Compose extends Component {
   handleSubmit (event) {
     event.preventDefault()
     var newMail = {}
-    newMail['MAIL_FROM'] = this.state.mailfrom
     newMail['RCPT_TO'] = this.state.mailto
     newMail['DATA'] = this.state.mailbody
     this.sendMail(newMail)
@@ -52,7 +46,6 @@ class Compose extends Component {
     return (
       <div className="Compose">
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="mailfrom">Mail From: </label><input type="text" onChange={this.changeMailFrom} value={this.state.value} name="mailfrom" /><br/>
           <label htmlFor="mailto">Mail To: </label><input type="text" onChange={this.changeMailTo} value={this.state.value} name="mailto" /><br/>
           <label htmlFor="mailbody">Message: </label>
           <textarea type="text" name="mailbody" onChange={this.changeMailBody} value={this.state.value} placeholder="Send some retro mail!!!"></textarea>

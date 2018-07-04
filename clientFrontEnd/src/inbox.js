@@ -12,7 +12,8 @@ class Inbox extends Component {
   }
 
   componentDidMount () {
-    this.interval = setInterval(() => this.pullEmails(), 1000)
+    this.pullEmails()
+    this.interval = setInterval(() => this.pullEmails(), 2000)
   }
 
   pullEmails () {

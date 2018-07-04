@@ -1,18 +1,27 @@
 /* global it, describe, test, expect */
-
 const ReceiverHandshakeFactory = require('../lib/receiverHandshake').ReceiverHandshakeFactory
-jest.mock('net')
 
 describe('Receiver', () => {
-  let Socket = require('net').Socket
-  let connection = new Socket()
-  let receiver
+  let receiver, failedReceiver
   let inbox = { addMessages: jest.fn() }
-  let inboxSpy
+  let inboxSpy, connectionSpy, endedSpy
   const userName = 'user@user.com'
+  let mockWritablestateEnded = { ended: true }
+  let mockWritablestateNotEnded = { ended: false }
+  let goodConnection = { end: jest.fn(), write: jest.fn(), _writableState: mockWritablestateNotEnded }
+  let badConnection = { end: jest.fn(), write: jest.fn(), _writableState: mockWritablestateEnded }
 
   beforeEach(() => {
-    receiver = ReceiverHandshakeFactory.build(connection, inbox, userName)
+    receiver = ReceiverHandshakeFactory.build(goodConnection, inbox, userName)
+    failedReceiver = ReceiverHandshakeFactory.build(badConnection, inbox, userName)
+  })
+
+  describe('failed connection', () => {
+    it('shouldnt write if the connection has ended', () => {
+      let connectionSpy = jest.spyOn(badConnection, 'write')
+      failedReceiver._handshake()
+      expect(connectionSpy).not.toHaveBeenCalled()
+    })
   })
 
   describe('initiateHandshake', () => {
@@ -25,19 +34,20 @@ describe('Receiver', () => {
 
   describe('_handshake', () => {
     it('should call the first function of sender._functionOrder', () => {
-      let connectionSpy = jest.spyOn(connection, 'write')
+      let connectionSpy = jest.spyOn(goodConnection, 'write')
       receiver._handshake()
       expect(connectionSpy).toHaveBeenCalledWith('HELLO')
     })
+
     it('should call connection.end if sender._functionOrder is empty', () => {
-      let connectionSpy = jest.spyOn(connection, 'end')
+      let connectionSpy = jest.spyOn(goodConnection, 'end')
       receiver._functionOrder = []
       receiver._handshake()
       expect(connectionSpy).toHaveBeenCalled()
     })
 
     it('should console log "Disconnected from POP Server" if connection terminated successfully', () => {
-      let connectionSpy = jest.spyOn(connection, 'end')
+      let connectionSpy = jest.spyOn(goodConnection, 'end')
       connectionSpy.mockReturnValueOnce(true)
       console.log = jest.fn()
       receiver._functionOrder = []
@@ -47,7 +57,7 @@ describe('Receiver', () => {
   })
 
   describe('handshake methods', () => {
-    let connectionSpy = jest.spyOn(connection, 'write')
+    let connectionSpy = jest.spyOn(goodConnection, 'write')
 
     beforeEach(() => {
       connectionSpy.mockClear()
@@ -130,7 +140,7 @@ describe('Receiver', () => {
     })
 
     it('should call connection.end if response differs from expected response', () => {
-      let connectionSpy = jest.spyOn(connection, 'end')
+      let connectionSpy = jest.spyOn(goodConnection, 'end')
       let actualResponse = 5
       let expectedResponse = '6'
       receiver._responseProcessor(actualResponse, expectedResponse)

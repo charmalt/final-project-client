@@ -18,7 +18,6 @@ app.use(bodyParser.urlencoded({
 app.post('/login', (req, res) => {
   let user = req.body.sessionUser
   mailClient = new MailClient(Env.smtpPort, Env.smtpHost, Env.popPort, Env.popHost, user)
-  mailClient.receive()
 })
 
 app.get('/api/emails', (req, res) => {

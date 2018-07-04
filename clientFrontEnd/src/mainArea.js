@@ -6,7 +6,7 @@ class MainArea extends Component {
   render () {
     return (
       <div className="mainArea">
-        {this.props.compose && < Compose/>}
+        {this.props.compose && < Compose backToInbox={this.props.backToInbox}/>}
         {!this.props.compose && < Inbox/>}
       </div>
     )

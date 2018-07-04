@@ -23,7 +23,7 @@ class Body extends Component {
           <button className="inbox" onClick={this.inbox} type="button">INBOX </button>
           <button className="compose" onClick={this.compose} type="button">COMPOSE </button>
         </div>
-        <MainArea compose={this.state.compose} />
+        <MainArea backToInbox={this.inbox} compose={this.state.compose} />
       </div>
     )
   }

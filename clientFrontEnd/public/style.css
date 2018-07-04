@@ -38,7 +38,7 @@ html, body, #root {
   height: 100%;
   float: left;
   overflow: auto;
-  border-radius: 0px 0px 15px 15px;
+  border-radius: 0px 0px 0px 15px;
 }
 
 .mainArea {
@@ -47,6 +47,7 @@ html, body, #root {
   height: 100%;
   float:left;
   overflow: auto;
+  border-radius: 0px 0px 0px 15px;
 }
 
 .email {

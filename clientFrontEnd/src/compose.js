@@ -33,6 +33,7 @@ class Compose extends Component {
     newMail['DATA'] = this.state.mailbody
     this.sendMail(newMail)
     this.setState({ value: ' ' })
+    this.props.backToInbox()
   }
 
   sendMail (data) {

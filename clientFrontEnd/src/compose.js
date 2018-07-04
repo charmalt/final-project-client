@@ -49,7 +49,7 @@ class Compose extends Component {
         <form onSubmit={this.handleSubmit}>
           <label className="label" htmlFor="mailto">Mail To: </label><input type="text" onChange={this.changeMailTo} value={this.state.value} name="mailto" /><br/>
           <label className="label" htmlFor="mailbody">Message: </label>
-          <input type="text" name="mailbody" onChange={this.changeMailBody} value={this.state.value}/>
+          <input type="text" name="mailbody" onChange={this.changeMailBody} value={this.state.value} />
           <div>
             <input type="submit" value="Submit" />
           </div>

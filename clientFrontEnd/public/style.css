@@ -43,11 +43,11 @@ html, body, #root {
 
 .mainArea {
   width:85%;
-  background-color: #FFFFEA;
+  background-color: #D0DEEC;
   height: 100%;
   float:left;
   overflow: auto;
-  border-radius: 0px 0px 0px 15px;
+  border-radius: 0px 0px 15px 0px;
 }
 
 .email {
@@ -74,10 +74,12 @@ html, body, #root {
 .from {
   font-weight: bold;
   padding: 10px;
+  letter-spacing: 2px;
 }
 
 .message {
   padding-left: 10px;
+  letter-spacing: 2px;
 }
 
 .label {
@@ -88,7 +90,7 @@ html, body, #root {
    margin-top: 4px;
 }
 
-form input {
+form input, textarea {
     border-bottom: 1px dashed #989895;
     border-right: none;
     border-left: none;
@@ -111,6 +113,7 @@ form input {
   margin: 10px;
   margin-left: 20px;
   padding: 10px;
+  font-size: 20px;
   border: 2px outset white;
   background: #eee;
   padding: 2px;

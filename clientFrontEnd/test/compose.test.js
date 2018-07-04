@@ -27,20 +27,9 @@ describe('<Compose />', () => {
       expect(compose.state().mailbody).toEqual('test')
     })
 
-    it('changeMailFrom changes state', () => {
-      compose.instance().changeMailFrom(out)
-      expect(compose.state().mailfrom).toEqual('test')
-    })
-
     it('changeMailto changes state', () => {
       compose.instance().changeMailTo(out)
       expect(compose.state().mailto).toEqual('test')
-    })
-  })
-  describe('#handleSubmit', () => {
-    it('Calls preventDefault', () => {
-      compose.instance().handleSubmit(submitOut)
-      expect(preventSpy).toHaveBeenCalled()
     })
   })
 

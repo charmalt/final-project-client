@@ -20,15 +20,11 @@ describe('<Email/>', () => {
     email = shallow(<Email key={1} cname={1} email={obj} />)
   })
 
-  it('Displays mailto', () => {
-    expect(email.text()).toContain('Mail To: igor@igor.com')
-  })
-
   it('Displays mailfrom', () => {
-    expect(email.text()).toContain('Mail From: pino@chio.com')
+    expect(email.text()).toContain('pino@chio.com')
   })
 
   it('Displays mailbody', () => {
-    expect(email.text()).toContain('Message: Am I a real boy?')
+    expect(email.text()).toContain('Am I a real boy?')
   })
 })

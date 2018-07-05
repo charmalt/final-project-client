@@ -21,9 +21,9 @@ class Login extends Component {
 
   render () {
     return (
-      <div>
+      <div className='login'>
         <form onSubmit={this.onSubmit}>
-          <label>Username: </label>
+          <label className='label'>Username: </label>
           <input
             type='text'
             name='sessionUser'
@@ -31,7 +31,7 @@ class Login extends Component {
             value={this.state.value}
           />
           <br/>
-          <label>Password: </label>
+          <label className='label'>Password: </label>
           <input
             type='password'
             name='password'

@@ -27,27 +27,16 @@ describe('<Compose />', () => {
       expect(compose.state().mailbody).toEqual('test')
     })
 
-    it('changeMailFrom changes state', () => {
-      compose.instance().changeMailFrom(out)
-      expect(compose.state().mailfrom).toEqual('test')
-    })
-
     it('changeMailto changes state', () => {
       compose.instance().changeMailTo(out)
       expect(compose.state().mailto).toEqual('test')
-    })
-  })
-  describe('#handleSubmit', () => {
-    it('Calls preventDefault', () => {
-      compose.instance().handleSubmit(submitOut)
-      expect(preventSpy).toHaveBeenCalled()
     })
   })
 
   describe('#sendMail', () => {
     it('Calls fetch with a argument send and post', () => {
       compose.instance().sendMail({test: 'test'})
-      expect(fetch).toHaveBeenCalledWith('/api/emails', {'body': '{}', 'headers': {'Content-Type': 'application/json'}, 'method': 'POST'})
+      expect(fetch).toHaveBeenCalledWith('/api/emails', {'body': '{"test":"test"}', 'headers': {'Content-Type': 'application/json'}, 'method': 'POST'})
     })
   })
 })

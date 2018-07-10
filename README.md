@@ -1,4 +1,4 @@
-# RetroMail SMTP Server
+# RetroMail Mail Client
 
 [Summary](#summary) | [Specification](#specification) | [Getting started](#getting-started) | [Approach](#approach) | [More](#further-development)
 
